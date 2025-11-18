@@ -1,0 +1,38 @@
+{
+  "nav": {
+    "home": "Home",
+    "profile": "Profile",
+    "experience": "Experience",
+    "projects": "Projects",
+    "contact": "Contact",
+    "language": "Language"
+  },
+  "menu": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "home": {
+    "title": "Welcome",
+    "subtitle": "This is my interview CV site."
+  },
+  "profile": {
+    "title": "Profile",
+    "intro": "Personal information and summary"
+  },
+  "experience": {
+    "title": "Experience",
+    "intro": "Work history and responsibilities"
+  },
+  "projects": {
+    "title": "Projects",
+    "intro": "Selected projects and case studies"
+  },
+  "contact": {
+    "title": "Contact",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "submit": "Submit"
+  }
+}
