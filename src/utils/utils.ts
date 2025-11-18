@@ -10,3 +10,11 @@ export const getLang = (): string => {
 export const getLangFromURL = (): string => {
   return window.location.pathname.split("/")[1];
 };
+
+export const blockScroll = () => {
+  document.body.style.overflow = "hidden";
+};
+
+export const unblockScroll = () => {
+  document.body.style.overflow = "auto";
+};
