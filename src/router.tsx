@@ -10,9 +10,9 @@ const Contact = lazy(() => import("./pages/Contact"));
 const About = lazy(() => import("./pages/About"));
 
 const router = createBrowserRouter([
-  { path: "/", element: <Navigate to="/zh-hk" replace /> },
+  { path: "/", element: <Navigate to="/zh-HK" replace /> },
   {
-    path: "/zh-hk",
+    path: "/zh-HK",
     element: <Layout />,
     children: [
       { index: true, element: <Home /> },
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       { path: "contact", element: <Contact /> },
     ],
   },
-  { path: "*", element: <Navigate to="/zh-hk" replace /> },
+  { path: "*", element: <Navigate to="/zh-HK" replace /> },
 ]);
 
 export default router;
