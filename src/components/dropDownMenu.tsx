@@ -18,7 +18,7 @@ const DropDownMenu = ({ items, isOpen, id }: MenuProps) => {
   return (
     <section
       className={clsx(
-        "absolute top-full left-0 w-full z-9998 transition-all duration-500 linear bg-black text-gray-400 max-h-0 overflow-hidden",
+        "absolute top-full left-0 w-full z-9998 transition-all duration-500 linear bg-black/80 text-gray-400 max-h-0 overflow-hidden",
         isOpen && "max-h-1000 overflow-auto"
       )}
     >

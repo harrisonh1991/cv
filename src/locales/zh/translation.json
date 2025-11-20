@@ -1,38 +1,4 @@
 {
-  "nav": {
-    "home": "首頁",
-    "profile": "個人檔案",
-    "experience": "經歷",
-    "projects": "專案",
-    "contact": "聯絡",
-    "language": "語言"
-  },
-  "menu": {
-    "home": "首頁",
-    "about": "關於我",
-    "contact": "聯絡"
-  },
-  "home": {
-    "title": "歡迎",
-    "subtitle": "這是我的面試用個人履歷網站。"
-  },
-  "profile": {
-    "title": "個人檔案",
-    "intro": "個人資訊與摘要"
-  },
-  "experience": {
-    "title": "經歷",
-    "intro": "工作經歷與職責"
-  },
-  "projects": {
-    "title": "專案",
-    "intro": "精選專案與案例"
-  },
-  "contact": {
-    "title": "聯絡我",
-    "name": "姓名",
-    "email": "電子郵件",
-    "message": "訊息",
-    "submit": "送出"
-  }
+  "skills": "技能",
+  "frontendDeveloper": "前端開發者"
 }

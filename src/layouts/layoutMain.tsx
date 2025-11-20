@@ -24,10 +24,10 @@ const LayoutMain = () => {
 
   return (
     <>
-      <header className="relative">
+      <header className="absolute w-full">
         {isMobile ? (
           <>
-            <nav className="flex justify-end px-3 h-12 items-center">
+            <nav className="flex justify-end px-3 h-12 items-center bg-black/50">
               <div
                 className="p-1"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
