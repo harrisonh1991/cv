@@ -35,6 +35,7 @@ export default function Home() {
       alt: "CSS",
     },
   ];
+
   return (
     <section>
       <TextRain className="fixed w-full h-full z-[-1]" />
@@ -49,10 +50,10 @@ export default function Home() {
         </div>
       </div>
       <div className="bg-black/80 text-white px-3 py-10">
-        <h1 className="text-4xl">{t("skills")}</h1>
+        <h1 className="text-3xl">{t("skills")}</h1>
         <div className="grid mt-5 gap-5 grid-cols-3">
           {icons.map((icon) => (
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center" key={icon.alt}>
               <img
                 src={icon.src}
                 alt={icon.alt}

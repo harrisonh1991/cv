@@ -7,7 +7,6 @@ export default {
       md: { max: "1024px" },
       sm: { max: "640px" },
     },
-    extend: {},
   },
   plugins: [],
 };
