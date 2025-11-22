@@ -1,17 +1,17 @@
 import { useTranslation } from "react-i18next";
 import { Menu as IconMenu } from "lucide-react";
 import { Outlet } from "react-router-dom";
-import { useIsMobile } from "../hooks/useMedia";
+import useMedia from "@/hooks/useMedia";
 import { useState, useCallback, useRef } from "react";
-import DropDownMenu from "../components/dropDownMenu";
+import DropDownMenu from "@/components/dropDownMenu";
 import clsx from "clsx";
 
 const LayoutMain = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t, i18n } = useTranslation();
-  const isMobile = useIsMobile();
+  const isMobile = useMedia();
   const lang = i18n.language;
-  const buttonRef = useRef<HTMLElement>(null);
+  const buttonRef = useRef<HTMLDivElement>(null);
   const menuItems = [
     { label: t("home"), href: `/${lang}/` },
     { label: t("profile"), href: `/${lang}/profile` },
@@ -65,12 +65,16 @@ const LayoutMain = () => {
             />
           </>
         ) : (
-          <nav>
-            <ul className="flex justify-center h-12 items-center gap-3">
-              {menuItems.map((item) => (
-                <li key={item.href}>
-                  <a href={item.href}>{item.label}</a>
-                </li>
+          <nav className="bg-black/80 h-12">
+            <ul className="flex justify-center h-12 items-center gap-1">
+              {menuItems.map((item, index) => (
+                <>
+                  <li className="text-white p-1 group" key={item.href}>
+                    <a className="font-bold" href={item.href}>{item.label}</a>
+                    <div className="m-auto m-[2px] h-[3px] w-0 bg-green-500 group-hover:w-full transition-all duration-300"></div>
+                  </li>
+                  {index !== menuItems.length - 1 && <div className="rounded-full border-3 border-white"></div>}
+                </>
               ))}
             </ul>
           </nav>

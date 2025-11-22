@@ -1,13 +1,16 @@
-import TextRain from "../components/textRain";
+import TextRain from "@/components/textRain";
 import { useTranslation } from "react-i18next";
-import logoReact from "../assets/react.svg";
-import logoVue from "../assets/vue.svg";
-import logoGTM from "../assets/gtm.svg";
-import logoJS from "../assets/js.png";
-import logoHTML from "../assets/html.png";
-import logoCSS from "../assets/css.png";
+import logoReact from "@/assets/react.svg";
+import logoVue from "@/assets/vue.svg";
+import logoGTM from "@/assets/gtm.svg";
+import logoJS from "@/assets/js.png";
+import logoHTML from "@/assets/html.png";
+import logoCSS from "@/assets/css.png";
+import useMedia from "@/hooks/useMedia";
+import clsx from "clsx";
 
 export default function Home() {
+  const isMobile = useMedia();
   const { t } = useTranslation();
   const icons = [
     {
@@ -36,9 +39,15 @@ export default function Home() {
     },
   ];
 
+  const aligns = ["", "justify-center", "justify-end"];
+
   return (
     <section>
-      <TextRain className="fixed w-full h-full z-[-1]" />
+      <TextRain
+        className="fixed w-full h-full z-[-1]"
+        count={isMobile ? 5 : 15}
+        dropSpeed={isMobile ? 5 : 10}
+      />
       <div className="flex items-center justify-center h-screen color-white font-bold text-center">
         <div>
           <div className="text-4xl">Harrison Huang</div>
@@ -50,18 +59,22 @@ export default function Home() {
         </div>
       </div>
       <div className="bg-black/80 text-white px-3 py-10">
-        <h1 className="text-3xl">{t("skills")}</h1>
-        <div className="grid mt-5 gap-5 grid-cols-3">
-          {icons.map((icon) => (
-            <div className="flex flex-col items-center" key={icon.alt}>
-              <img
-                src={icon.src}
-                alt={icon.alt}
-                className="w-12 rounded-[50%] border-3 p-2 border-green-500 mx-auto"
-              />
-              {icon.alt}
-            </div>
-          ))}
+        <div className="max-w-3xl mx-auto">
+          <h1 className="text-3xl">{t("skills")}</h1>
+          <div className="grid grid-cols-3 mt-5 gap-3">
+            {icons.map((icon, index) => (
+              <div className={clsx("flex", aligns[index % 3])} key={icon.alt}>
+                <div className={"flex flex-col items-center"} key={icon.alt}>
+                  <img
+                    src={icon.src}
+                    alt={icon.alt}
+                    className="w-12 rounded-[50%] border-3 p-2 border-green-500"
+                  />
+                  <div className="mt-1">{icon.alt}</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

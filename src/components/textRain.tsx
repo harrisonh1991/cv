@@ -67,29 +67,29 @@ export default function TextRain({
     };
     // 有機會隨機更換字元
     const ramdomSomeText = (texts: string[]) => {
-      const isChange = Math.random() * 1 > 0.9;
+      const isChange = Math.random() * 1 > 0.8;
       if (!isChange) return texts;
-
-      for (let i = 0; i < 3; i++) {
+      const randNumber = Math.floor(Math.random() * wordCount);
+      for (let i = 0; i < randNumber; i++) {
         const randomIndex = Math.floor(Math.random() * wordCount);
         texts[randomIndex] = getRamdomText();
       }
       return texts;
     };
     // 初始化字元
-    const getItemInitData = () => {
+    const getItemInitData = (isForStart?: boolean) => {
       return {
         text: getRamdomTexts(),
         dropSpeed: dropSpeed * (Math.random() * 0.5 + 0.5),
         fontSize: fontSize,
         x: 0 + Math.random() * canvas.width,
-        y: 0,
+        y: isForStart ? Math.random() * -canvas.height: 0 ,
       };
     };
 
     const items: TypeTextRainItem[] = [];
     for (let i = 0; i < count; i++) {
-      items[i] = getItemInitData();
+      items[i] = getItemInitData(true);
     }
 
     const draw = () => {

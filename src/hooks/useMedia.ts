@@ -1,27 +1,18 @@
-// src/hooks/useMedia.ts
-import { useState, useEffect } from "react";
+import { useEffect, useState } from 'react';
 
-const useMedia = (query: string): boolean => {
-  const [matches, setMatches] = useState(false);
+function useMedia() {
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const media = window.matchMedia(query);
+    const mediaQuery = window.matchMedia('(max-width: 1024px)');
+    setIsMobile(mediaQuery.matches);
 
-    if (media.matches !== matches) {
-      setMatches(media.matches);
-    }
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
 
-    const listener = () => setMatches(media.matches);
-    media.addEventListener("change", listener);
-
-    return () => media.removeEventListener("change", listener);
-  }, [matches, query]);
-
-  return matches;
-};
-
-export const useIsMobile = (): boolean => {
-  return useMedia("(max-width: 1023px)");
-};
+  return isMobile;
+}
 
 export default useMedia;
