@@ -64,12 +64,14 @@ export default function Home() {
           <div className="grid grid-cols-3 mt-5 gap-3">
             {icons.map((icon, index) => (
               <div className={clsx("flex", aligns[index % 3])} key={icon.alt}>
-                <div className={"flex flex-col items-center"} key={icon.alt}>
-                  <img
-                    src={icon.src}
-                    alt={icon.alt}
-                    className="w-12 rounded-[50%] border-3 p-2 border-green-500"
-                  />
+                <div className={"flex flex-col items-center "} key={icon.alt}>
+                  <div className="bg-[linear-gradient(40deg,theme(colors.green.600),60%,theme(colors.green.400),85%,theme(colors.green.100))] rounded-[50%] p-[3px]">
+                    <img
+                      src={icon.src}
+                      alt={icon.alt}
+                      className="w-12 bg-black rounded-[50%] p-1"
+                    />
+                  </div>
                   <div className="mt-1">{icon.alt}</div>
                 </div>
               </div>
