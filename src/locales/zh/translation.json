@@ -2,5 +2,12 @@
   "skills": "技能",
   "frontendDeveloper": "前端開發者",
   "home": "首頁",
-  "profile": "關於我"
+  "profile": "關於我",
+  "age": "歲",
+  "birthday": "生日",
+  "gender": "性別",
+  "male": "男",
+  "englishname": "英文名",
+  "name": "姓名",
+  "email": "電子郵件"
 }

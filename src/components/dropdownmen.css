@@ -1,0 +1,33 @@
+/* 自己定義 keyframes */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 自己定義 keyframes */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-10px);
+  }
+}
+
+/* 開啟時用 */
+.animate-slide-down {
+  animation: slideDown 3000ms ease-out forwards;
+}
+
+/* 關閉時用 */
+.animate-slide-up {
+  animation: slideUp 3000ms ease-out forwards;
+}

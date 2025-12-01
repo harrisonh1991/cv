@@ -1,10 +1,17 @@
 import { useTranslation } from "react-i18next";
 import { Menu as IconMenu } from "lucide-react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import useMedia from "@/hooks/useMedia";
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useMemo, Fragment } from "react";
 import DropDownMenu from "@/components/dropDownMenu";
 import clsx from "clsx";
+
+interface MenuItem {
+  label: string;
+  className?: string;
+  href: string;
+  isCurrentPath?: boolean;
+}
 
 const LayoutMain = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,21 +19,36 @@ const LayoutMain = () => {
   const isMobile = useMedia();
   const lang = i18n.language;
   const buttonRef = useRef<HTMLDivElement>(null);
-  const menuItems = [
-    { label: t("home"), href: `/${lang}/` },
-    { label: t("profile"), href: `/${lang}/profile` },
-  ].map((e) => {
-    const isCurrentPath = window.location.pathname === e.href;
-    return {
-      ...e,
-      className: clsx(
-        "font-bold",
-        isCurrentPath
-          ? "text-black font-bold bg-white"
-          : "text-white hover:text-black hover:font-bold hover:bg-white transition-all duration-300"
-      ),
-    };
-  });
+  const navigate = useNavigate();
+  const location = useLocation();
+  const menuItems: MenuItem[] = useMemo(() => {
+    return [
+      { label: t("home"), href: `/${lang}/` },
+      { label: t("profile"), href: `/${lang}/profile` },
+    ].map((e) => {
+      const isCurrentPath = location.pathname === e.href;
+      return isMobile
+        ? {
+            ...e,
+            className: clsx(
+              "font-bold",
+              isCurrentPath
+                ? "text-black bg-green-500 pointer-events-none"
+                : "text-white hover:text-black hover:bg-green-500 transition-all duration-300"
+            ),
+          }
+        : {
+            ...e,
+            className: clsx(
+              "font-bold",
+              isCurrentPath
+                ? "text-green-500 pointer-events-none"
+                : "text-white hover:text-green-500 transition-all duration-300"
+            ),
+            isCurrentPath,
+          };
+    });
+  }, [isMobile, lang, t, location.pathname]);
 
   const handleMenuOpen = useCallback(
     (e: boolean) => {
@@ -52,7 +74,7 @@ const LayoutMain = () => {
                 aria-expanded={isMenuOpen}
                 aria-controls="navMenu"
               >
-                <IconMenu size={26} />
+                <IconMenu size={26} className="text-green-500" />
               </div>
             </nav>
             <DropDownMenu
@@ -68,13 +90,32 @@ const LayoutMain = () => {
           <nav className="bg-black/80 h-12">
             <ul className="flex justify-center h-12 items-center gap-1">
               {menuItems.map((item, index) => (
-                <>
-                  <li className="text-white p-1 group" key={item.href}>
-                    <a className="font-bold" href={item.href}>{item.label}</a>
-                    <div className="m-auto m-[2px] h-[3px] w-0 bg-green-500 group-hover:w-full transition-all duration-300"></div>
+                <Fragment key={index}>
+                  <li
+                    className={clsx("p-1 group", item.className)}
+                    key={item.href}
+                  >
+                    <a
+                      className="font-bold"
+                      href={item.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        navigate(item.href);
+                      }}
+                    >
+                      {item.label}
+                    </a>
+                    <div
+                      className={clsx(
+                        "m-auto h-[3px] w-0 bg-green-500 group-hover:w-full transition-all duration-300",
+                        item.isCurrentPath && "w-full pointer-events-none"
+                      )}
+                    ></div>
                   </li>
-                  {index !== menuItems.length - 1 && <div className="rounded-full border-3 border-white"></div>}
-                </>
+                  {index !== menuItems.length - 1 && (
+                    <div className="rounded-full border-3 border-white"></div>
+                  )}
+                </Fragment>
               ))}
             </ul>
           </nav>

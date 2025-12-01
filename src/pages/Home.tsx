@@ -7,6 +7,7 @@ import logoJS from "@/assets/js.png";
 import logoHTML from "@/assets/html.png";
 import logoCSS from "@/assets/css.png";
 import useMedia from "@/hooks/useMedia";
+import logoGithub from "@/assets/github.svg";
 import clsx from "clsx";
 
 export default function Home() {
@@ -37,6 +38,12 @@ export default function Home() {
       src: logoCSS,
       alt: "CSS",
     },
+
+    {
+      src: logoGithub,
+      className: "bg-white",
+      alt: "Github",
+    },
   ];
 
   const aligns = ["", "justify-center", "justify-end"];
@@ -65,12 +72,14 @@ export default function Home() {
             {icons.map((icon, index) => (
               <div className={clsx("flex", aligns[index % 3])} key={icon.alt}>
                 <div className={"flex flex-col items-center "} key={icon.alt}>
-                  <div className="bg-[linear-gradient(40deg,theme(colors.green.600),60%,theme(colors.green.400),85%,theme(colors.green.100))] rounded-[50%] p-[3px]">
-                    <img
-                      src={icon.src}
-                      alt={icon.alt}
-                      className="w-12 bg-black rounded-[50%] p-1"
-                    />
+                  <div className="bg-[linear-gradient(40deg,var(--color-green-600),60%,var(--color-green-400),85%,var(--color-green-100))] rounded-[50%] p-[3px]">
+                    <div className="bg-black p-1 rounded-[50%]">
+                      <img
+                        src={icon.src}
+                        alt={icon.alt}
+                        className={clsx("w-12 rounded-[50%]", icon.className)}
+                      />
+                    </div>
                   </div>
                   <div className="mt-1">{icon.alt}</div>
                 </div>

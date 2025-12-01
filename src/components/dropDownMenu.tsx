@@ -1,6 +1,13 @@
 import clsx from "clsx";
 import { Link } from "react-router-dom";
-import { useEffect, useRef, memo, type RefObject } from "react";
+import {
+  useEffect,
+  useRef,
+  memo,
+  type RefObject,
+  useState,
+  useCallback,
+} from "react";
 interface MenuItem {
   label: string;
   href: string;
@@ -19,9 +26,12 @@ interface MenuProps {
 
 const DropDownMenu = memo(
   ({ items, isOpen, id, setIsMenuOpen, className, buttonRef }: MenuProps) => {
+    const [isShow, setIsShow] = useState(true);
+    const timerRef = useRef<number>(null);
     const rootRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
+        if (!isShow) return;
         const _ref = buttonRef?.current;
         if (!isOpen) return;
         if (
@@ -32,18 +42,32 @@ const DropDownMenu = memo(
           return;
         setIsMenuOpen(false);
       };
-      document.addEventListener("click", handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
       return () => {
-        document.removeEventListener("click", handleClickOutside);
+        document.removeEventListener("mousedown", handleClickOutside);
       };
-    }, [isOpen, setIsMenuOpen, buttonRef]);
+    }, [isOpen, setIsMenuOpen, buttonRef, isShow]);
+
+    const handleDisplayMenu = useCallback((isDisplay: boolean) => {
+      setIsShow(isDisplay);
+    }, []);
+
+    useEffect(() => {
+      if (timerRef?.current !== null) clearTimeout(timerRef.current);
+      if (isOpen) return handleDisplayMenu(true);
+      timerRef.current = setTimeout(() => {
+        handleDisplayMenu(false);
+      }, 300);
+    }, [isOpen, handleDisplayMenu]);
+
+    if (!isShow) return <></>;
 
     return (
       <section
         ref={rootRef}
         className={clsx(
-          "absolute top-full left-0 w-full z-9998 transition-all duration-300 ease-in-out text-nav max-h-0 overflow-hidden",
-          isOpen && "max-h-1000 overflow-auto",
+          "absolute top-full left-0 w-full z-9998 transition-all duration-300 text-nav opacity-0 transform -translate-y-2",
+          isOpen && "opacity-100 translate-y-0",
           className
         )}
       >
