@@ -1,94 +1,104 @@
 import clsx from "clsx";
 import { Link } from "react-router-dom";
+import { type RefObject } from "react";
 import {
   useEffect,
   useRef,
   memo,
-  type RefObject,
+  forwardRef,
+  useImperativeHandle,
   useState,
-  useCallback,
 } from "react";
-interface MenuItem {
+import { AnimatePresence, motion } from "framer-motion";
+interface TypeMenuItem {
   label: string;
   href: string;
   className?: string;
   onClick?: () => void;
 }
 
-interface MenuProps {
+interface TypeMenuProps {
   id?: string;
-  items: MenuItem[];
-  isOpen: boolean;
-  setIsMenuOpen: (e: boolean) => void;
+  items: TypeMenuItem[];
   className?: string;
-  buttonRef: RefObject<HTMLElement | null>;
+  buttonRef?: RefObject<HTMLDivElement>;
+}
+
+export interface TypeDropdownMenuRef {
+  open: () => void;
+  close: () => void;
+  toggle: () => void;
+  isOpen: boolean;
 }
 
 const DropDownMenu = memo(
-  ({ items, isOpen, id, setIsMenuOpen, className, buttonRef }: MenuProps) => {
-    const [isShow, setIsShow] = useState(true);
-    const timerRef = useRef<number>(null);
-    const rootRef = useRef<HTMLDivElement>(null);
-    useEffect(() => {
-      const handleClickOutside = (event: MouseEvent) => {
-        if (!isShow) return;
-        const _ref = buttonRef?.current;
-        if (!isOpen) return;
-        if (
-          rootRef.current &&
-          (rootRef.current.contains(event.target as Node) ||
-            (_ref && _ref.contains(event.target as Node)))
-        )
-          return;
-        setIsMenuOpen(false);
-      };
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [isOpen, setIsMenuOpen, buttonRef, isShow]);
+  forwardRef<TypeDropdownMenuRef, TypeMenuProps>(
+    ({ items, id, className, buttonRef }, ref) => {
+      const rootRef = useRef<HTMLDivElement>(null);
+      const [isOpen, setIsOpen] = useState(false);
 
-    const handleDisplayMenu = useCallback((isDisplay: boolean) => {
-      setIsShow(isDisplay);
-    }, []);
+      useEffect(() => {
+        const handleClickOutside = (e: Event) => {
+          const target = e.target;
+          if (
+            buttonRef?.current &&
+            !buttonRef.current.contains(target as Node)
+          ) {
+            setIsOpen(false);
+          }
+        };
 
-    useEffect(() => {
-      if (timerRef?.current !== null) clearTimeout(timerRef.current);
-      if (isOpen) return handleDisplayMenu(true);
-      timerRef.current = setTimeout(() => {
-        handleDisplayMenu(false);
-      }, 300);
-    }, [isOpen, handleDisplayMenu]);
+        document.addEventListener("click", handleClickOutside);
 
-    if (!isShow) return <></>;
+        return () => {
+          document.removeEventListener("click", handleClickOutside);
+        };
+      }, [buttonRef]);
 
-    return (
-      <section
-        ref={rootRef}
-        className={clsx(
-          "absolute top-full left-0 w-full z-9998 transition-all duration-300 text-nav opacity-0 transform -translate-y-2",
-          isOpen && "opacity-100 translate-y-0",
-          className
-        )}
-      >
-        <ul id={id} className={clsx("flex flex-col")}>
-          {items.map((item, index) => (
-            <li key={index}>
-              <Link
-                className={clsx("p-3 block ", item.className)}
-                to={item.href}
-                onClick={() => {
-                  item.onClick?.();
-                }}
-              >
-                {item.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
-    );
-  }
+      useImperativeHandle(ref, () => ({
+        open: () => setIsOpen(true),
+        close: () => setIsOpen(false),
+        toggle: () => setIsOpen(!isOpen),
+        isOpen,
+      }));
+
+      return (
+        <AnimatePresence>
+          {isOpen && (
+            <motion.section
+              ref={rootRef}
+              className={clsx(
+                "absolute top-full left-0 w-full z-9998 text-nav",
+                className
+              )}
+              id={id}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            >
+              {items.map((item, index) => (
+                <Link
+                  key={index}
+                  className={clsx(
+                    "p-3 block hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors",
+                    item.className
+                  )}
+                  to={item.href}
+                  onClick={() => {
+                    item.onClick?.();
+                    setIsOpen(false);
+                  }}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </motion.section>
+          )}
+        </AnimatePresence>
+      );
+    }
+  )
 );
 
 export default DropDownMenu;

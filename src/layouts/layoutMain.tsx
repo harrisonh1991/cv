@@ -2,8 +2,10 @@ import { useTranslation } from "react-i18next";
 import { Menu as IconMenu } from "lucide-react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import useMedia from "@/hooks/useMedia";
-import { useState, useCallback, useRef, useMemo, Fragment } from "react";
-import DropDownMenu from "@/components/dropDownMenu";
+import { useRef, useMemo, Fragment } from "react";
+import DropDownMenu, {
+  type TypeDropdownMenuRef,
+} from "@/components/dropDownMenu";
 import clsx from "clsx";
 
 interface MenuItem {
@@ -14,13 +16,13 @@ interface MenuItem {
 }
 
 const LayoutMain = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t, i18n } = useTranslation();
   const isMobile = useMedia();
   const lang = i18n.language;
-  const buttonRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const menuRef = useRef<TypeDropdownMenuRef>(null);
+  const buttonRef = useRef<HTMLDivElement>();
   const menuItems: MenuItem[] = useMemo(() => {
     return [
       { label: t("home"), href: `/${lang}/` },
@@ -50,14 +52,6 @@ const LayoutMain = () => {
     });
   }, [isMobile, lang, t, location.pathname]);
 
-  const handleMenuOpen = useCallback(
-    (e: boolean) => {
-      console.log("handleMenuOpen", e);
-      setIsMenuOpen(e);
-    },
-    [setIsMenuOpen]
-  );
-
   return (
     <>
       <header className="absolute top-0 left-0 w-full bg-bg">
@@ -67,23 +61,27 @@ const LayoutMain = () => {
               <div
                 ref={buttonRef}
                 className="p-1 cursor-pointer"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                onClick={() => {
+                  menuRef.current?.toggle();
+                }}
                 role="button"
                 aria-label="toggle menu"
                 data-toggle="collapse"
-                aria-expanded={isMenuOpen}
+                aria-expanded={menuRef.current?.isOpen}
                 aria-controls="navMenu"
               >
-                <IconMenu size={26} className="text-green-500" />
+                <IconMenu
+                  size={26}
+                  className="text-green-500 pointer-events-none"
+                />
               </div>
             </nav>
             <DropDownMenu
+              ref={menuRef}
               buttonRef={buttonRef}
               className="bg-black/90"
               id="navMenu"
               items={menuItems}
-              isOpen={isMenuOpen}
-              setIsMenuOpen={handleMenuOpen}
             />
           </>
         ) : (
