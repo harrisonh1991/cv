@@ -21,7 +21,7 @@ interface TypeMenuProps {
   id?: string;
   items: TypeMenuItem[];
   className?: string;
-  buttonRef?: RefObject<HTMLDivElement>;
+  buttonRef?: RefObject<HTMLDivElement | null>;
 }
 
 export interface TypeDropdownMenuRef {
@@ -80,10 +80,7 @@ const DropDownMenu = memo(
               {items.map((item, index) => (
                 <Link
                   key={index}
-                  className={clsx(
-                    "p-3 block hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors",
-                    item.className
-                  )}
+                  className={clsx("p-3 block", item.className)}
                   to={item.href}
                   onClick={() => {
                     item.onClick?.();

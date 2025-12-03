@@ -2,6 +2,8 @@
   "skills": "Skills",
   "frontendDeveloper": "Frontend Developer",
   "home": "Home",
+  "home.title": "Home",
+  "home.description": "About my personal information, education, work experience...",
   "profile": "Profile",
   "age": "Age",
   "birthday": "Birthday",
@@ -9,5 +11,15 @@
   "male": "Male",
   "englishname": "English Name",
   "name": "Name",
-  "email": "Email"
+  "email": "Email",
+  "seo.title.sub": " | Harrison Huang",
+  "education": "Education",
+  "higherdiplomagamesoftwaredevelopment": "Higher DipIoma in Game Software DeveIopment",
+  "higherdiploma": "Higher Diploma",
+  "ivety": "IVE (Tsing Yi)",
+  "ivewc": "IVE (Wai Chai)",
+  "f5": "Form 5 Graduate",
+  "highschool": "High School",
+  "ccckwcs": "CCC Kwei Wah Shan College",
+  "yijin": "Diploma Yi Jin"
 }

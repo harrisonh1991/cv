@@ -2,6 +2,8 @@
   "skills": "技能",
   "frontendDeveloper": "前端開發者",
   "home": "首頁",
+  "home.title": "首頁",
+  "home.description": "關於我的個人資料，學歷，工作經驗...",
   "profile": "關於我",
   "age": "歲",
   "birthday": "生日",
@@ -9,5 +11,15 @@
   "male": "男",
   "englishname": "英文名",
   "name": "姓名",
-  "email": "電子郵件"
+  "email": "電子郵件",
+  "seo.title.sub": " | Harrison Huang",
+  "education": "學歷",
+  "higherdiplomagamesoftwaredevelopment": "遊戲軟件高級文憑",
+  "higherdiploma": "高級文憑",
+  "ivety": "香港專業教育學育(青衣)",
+  "ivewc": "香港專業教育學育(灣仔)",
+  "f5": "中五畢業",
+  "highschool": "中學",
+  "ccckwcs": "中華基督教會桂華山中學",
+  "yijin": "毅進文憑"
 }

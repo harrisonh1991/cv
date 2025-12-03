@@ -11,6 +11,9 @@ importers:
       '@hookform/resolvers':
         specifier: ^5.2.2
         version: 5.2.2(react-hook-form@7.66.1(react@19.2.0))
+      '@unhead/react':
+        specifier: ^2.0.19
+        version: 2.0.19(react@19.2.0)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -731,6 +734,11 @@ packages:
     resolution: {integrity: sha512-SIV3/6eftCy1bNzCQoPmbWsRLujS8t5iDIZ4spZOBHqrM+yfX2ogg8Tt3PDTAVKw3sSCiUgg30uOAvK2r9zGjQ==, tarball: https://registry.npmmirror.com/@typescript-eslint/visitor-keys/-/visitor-keys-8.47.0.tgz}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
+  '@unhead/react@2.0.19':
+    resolution: {integrity: sha512-pW00tkOneGGTEJp5UeVkVWmti4VecLj0rIje5AqcBs0AoglSxc18LGGKi9Exd098++GzVouhkGo1Ch02YnZS7g==, tarball: https://registry.npmmirror.com/@unhead/react/-/react-2.0.19.tgz}
+    peerDependencies:
+      react: '>=18.3.1'
+
   '@vitejs/plugin-react@5.1.1':
     resolution: {integrity: sha512-WQfkSw0QbQ5aJ2CHYw23ZGkqnRwqKHD/KYsMeTkZzPT4Jcf0DcBxBtwMJxnu6E7oxw5+JC6ZAiePgh28uJ1HBA==, tarball: https://registry.npmmirror.com/@vitejs/plugin-react/-/plugin-react-5.1.1.tgz}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -1003,6 +1011,9 @@ packages:
   has-flag@4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==, tarball: https://registry.npmmirror.com/has-flag/-/has-flag-4.0.0.tgz}
     engines: {node: '>=8'}
+
+  hookable@5.5.3:
+    resolution: {integrity: sha512-Yc+BQe8SvoXH1643Qez1zqLRmbA5rCL+sSmk6TVos0LWVfNIB7PGncdlId77WzLGSIB5KaWgTaNTs2lNVEI6VQ==, tarball: https://registry.npmmirror.com/hookable/-/hookable-5.5.3.tgz}
 
   html-parse-stringify@3.0.1:
     resolution: {integrity: sha512-KknJ50kTInJ7qIScF3jeaFRpMpE8/lfiTdzf/twXyPBLAGrLRTmkz3AdTnKeh40X8k9L2fdYwEp/42WGXIRGcg==, tarball: https://registry.npmmirror.com/html-parse-stringify/-/html-parse-stringify-3.0.1.tgz}
@@ -1405,6 +1416,9 @@ packages:
 
   undici-types@7.16.0:
     resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==, tarball: https://registry.npmmirror.com/undici-types/-/undici-types-7.16.0.tgz}
+
+  unhead@2.0.19:
+    resolution: {integrity: sha512-gEEjkV11Aj+rBnY6wnRfsFtF2RxKOLaPN4i+Gx3UhBxnszvV6ApSNZbGk7WKyy/lErQ6ekPN63qdFL7sa1leow==, tarball: https://registry.npmmirror.com/unhead/-/unhead-2.0.19.tgz}
 
   update-browserslist-db@1.1.4:
     resolution: {integrity: sha512-q0SPT4xyU84saUX+tomz1WLkxUbuaJnR1xWt17M7fJtEJigJeWUNGUqrauFXsHnqev9y9JTRGwk13tFBuKby4A==, tarball: https://registry.npmmirror.com/update-browserslist-db/-/update-browserslist-db-1.1.4.tgz}
@@ -2041,6 +2055,11 @@ snapshots:
       '@typescript-eslint/types': 8.47.0
       eslint-visitor-keys: 4.2.1
 
+  '@unhead/react@2.0.19(react@19.2.0)':
+    dependencies:
+      react: 19.2.0
+      unhead: 2.0.19
+
   '@vitejs/plugin-react@5.1.1(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2))':
     dependencies:
       '@babel/core': 7.28.5
@@ -2329,6 +2348,8 @@ snapshots:
   graphemer@1.4.0: {}
 
   has-flag@4.0.0: {}
+
+  hookable@5.5.3: {}
 
   html-parse-stringify@3.0.1:
     dependencies:
@@ -2660,6 +2681,10 @@ snapshots:
   typescript@5.9.3: {}
 
   undici-types@7.16.0: {}
+
+  unhead@2.0.19:
+    dependencies:
+      hookable: 5.5.3
 
   update-browserslist-db@1.1.4(browserslist@4.28.0):
     dependencies:

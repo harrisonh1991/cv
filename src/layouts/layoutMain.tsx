@@ -22,7 +22,7 @@ const LayoutMain = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const menuRef = useRef<TypeDropdownMenuRef>(null);
-  const buttonRef = useRef<HTMLDivElement>();
+  const buttonRef = useRef<HTMLDivElement>(null);
   const menuItems: MenuItem[] = useMemo(() => {
     return [
       { label: t("home"), href: `/${lang}/` },

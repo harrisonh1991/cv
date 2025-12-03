@@ -1,5 +1,6 @@
-import TextRain from "@/components/textRain";
 import { useTranslation } from "react-i18next";
+import { useHead } from "@unhead/react";
+import TextRain from "@/components/textRain";
 import logoReact from "@/assets/react.svg";
 import logoVue from "@/assets/vue.svg";
 import logoGTM from "@/assets/gtm.svg";
@@ -13,6 +14,10 @@ import clsx from "clsx";
 export default function Home() {
   const isMobile = useMedia();
   const { t } = useTranslation();
+  useHead({
+    title: t("home.title") + t("seo.title.sub"),
+    meta: [{ name: "description", content: t("home.description") }],
+  });
   const icons = [
     {
       src: logoReact,
@@ -67,7 +72,7 @@ export default function Home() {
       </div>
       <div className="bg-black/80 text-white px-3 py-10">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl">{t("skills")}</h1>
+          <h1 className="text-3xl font-bold">{t("skills")}</h1>
           <div className="grid grid-cols-3 mt-5 gap-3">
             {icons.map((icon, index) => (
               <div className={clsx("flex", aligns[index % 3])} key={icon.alt}>
@@ -77,7 +82,7 @@ export default function Home() {
                       <img
                         src={icon.src}
                         alt={icon.alt}
-                        className={clsx("w-12 rounded-[50%]", icon.className)}
+                        className={clsx("w-10 rounded-[50%]", icon.className)}
                       />
                     </div>
                   </div>
