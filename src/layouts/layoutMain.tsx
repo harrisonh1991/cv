@@ -13,6 +13,7 @@ interface MenuItem {
   className?: string;
   href: string;
   isCurrentPath?: boolean;
+  matches?: string[];
 }
 
 const LayoutMain = () => {
@@ -24,11 +25,18 @@ const LayoutMain = () => {
   const menuRef = useRef<TypeDropdownMenuRef>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
   const menuItems: MenuItem[] = useMemo(() => {
-    return [
-      { label: t("home"), href: `/${lang}/` },
+    const _list: MenuItem[] = [
+      {
+        label: t("home"),
+        href: `/${lang}/`,
+        matches: [`/${lang}/`, `/${lang}`],
+      },
       { label: t("profile"), href: `/${lang}/profile` },
-    ].map((e) => {
-      const isCurrentPath = location.pathname === e.href;
+    ];
+    return _list.map((e: MenuItem) => {
+      const isCurrentPath = e.matches
+        ? e.matches.includes(location.pathname)
+        : location.pathname === e.href;
       return isMobile
         ? {
             ...e,

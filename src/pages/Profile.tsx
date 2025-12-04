@@ -49,26 +49,41 @@ export default function Profile() {
     [t]
   );
 
-  const educationLists: TypeEducationLists[] = [
-    {
-      title: t("higherdiplomagamesoftwaredevelopment"),
-      level: t("higherdiploma"),
-      school: t("ivety"),
-      year: "2018",
-    },
-    {
-      title: "1231",
-      level: t("yijin"),
-      school: t("ivewc"),
-      year: "2016",
-    },
-    {
-      title: t("f5"),
-      level: t("highschool"),
-      school: t("ccckwcs"),
-      year: "2010",
-    },
-  ];
+  const educationLists: TypeEducationLists[] = useMemo(
+    () => [
+      {
+        title: t("higherdiplomagamesoftwaredevelopment"),
+        level: t("higherdiploma"),
+        school: t("ivety"),
+        year: "2015-2018",
+      },
+      {
+        title: t("multimediagamedesign"),
+        level: t("yijin"),
+        school: t("vtcwc"),
+        year: "2015",
+      },
+      {
+        title: t("f5"),
+        level: t("highschool"),
+        school: t("ccckwcs"),
+        year: "2010",
+      },
+    ],
+    [t]
+  );
+
+  const works: ProfileItems[] = useMemo(
+    () => [
+      {
+        campaign: "I.T EZHOP (HK) Limited",
+        position: t("webdeveloper"),
+        period: "2018-2025",
+        description: t("description"),
+      },
+    ],
+    [t]
+  );
 
   const ref1 = useRef(null);
   const isInView1 = useInView(ref1, {
@@ -136,7 +151,7 @@ export default function Profile() {
               {educationLists.map((e, ei) => (
                 <li key={ei} className="relative">
                   <div className="flex justify-start items-start pt-2">
-                    <div className="flex items-center mr-10">
+                    <div className="flex items-center w-30">
                       <div className="w-1 h-1 rounded-full bg-green-500 inline-block mr-1"></div>
                       {e.year}
                     </div>
