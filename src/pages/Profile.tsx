@@ -4,6 +4,7 @@ import { getAge } from "@/utils/utils";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { useHead } from "@unhead/react";
 import clsx from "clsx";
+import { useWork } from "@/hooks/useWork";
 
 interface ProfileItems {
   label: string;
@@ -73,26 +74,7 @@ export default function Profile() {
     [t]
   );
 
-  const works: ProfileItems[] = useMemo(
-    () => [
-      {
-        campaign: "I.T EZHOP (HK) Limited",
-        position: t("webdeveloper"),
-        period: "2018-2025",
-        description: t("description"),
-      },
-    ],
-    [t]
-  );
-
-  const ref1 = useRef(null);
-  const isInView1 = useInView(ref1, {
-    once: true,
-  });
-  const ref2 = useRef(null);
-  const isInView2 = useInView(ref2, {
-    once: true,
-  });
+  const works = useWork();
 
   return (
     <section className="mt-12 text-green-500">
@@ -104,19 +86,13 @@ export default function Profile() {
       </div>
       <AnimatePresence>
         <motion.section
-          id="profile1"
-          ref={ref1}
           className="max-w-3xl m-auto grid gap-2 px-3 py-10"
-          initial={{ opacity: 0, transform: "translateX(20px)" }}
-          animate={
-            isInView1
-              ? { opacity: 1, transform: "translateX(0px)" }
-              : { opacity: 0, transform: "translateX(20px)" }
-          }
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0, ease: "easeInOut" }}
         >
-          {profiles.map((p) => (
-            <div key={p.label} className="flex">
+          {profiles.map((p, pi) => (
+            <div key={"profile1" + pi} className="flex">
               {p.label}
               <span className="px-1">:</span>
               {Array.isArray(p.value) ? (
@@ -134,22 +110,16 @@ export default function Profile() {
       </AnimatePresence>
       <AnimatePresence>
         <motion.section
-          id="profile2"
           className="max-w-3xl m-auto py-5 px-3"
-          ref={ref2}
-          initial={{ opacity: 0, transform: "translateX(20px)" }}
-          animate={
-            isInView2
-              ? { opacity: 1, transform: "translateX(0px)" }
-              : { opacity: 0, transform: "translateX(20px)" }
-          }
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
         >
           <h1 className="text-3xl font-bold">{t("education")}</h1>
-          <section className="mt-3 overflow-hidden">
+          <section className="mt-3">
             <ul>
               {educationLists.map((e, ei) => (
-                <li key={ei} className="relative">
+                <li key={"profile2" + ei} className="relative">
                   <div className="flex justify-start items-start pt-2">
                     <div className="flex items-center w-30">
                       <div className="w-1 h-1 rounded-full bg-green-500 inline-block mr-1"></div>
@@ -166,6 +136,40 @@ export default function Profile() {
                     <div>
                       <div>{e.title}</div>
                       <div>{e.school}</div>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </motion.section>
+      </AnimatePresence>
+      <AnimatePresence>
+        <motion.section
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className="max-w-3xl m-auto py-5 px-3"
+        >
+          <h1 className="text-3xl font-bold">{t("worksexperience")}</h1>
+          <section className="mt-3">
+            <ul>
+              {works.map((w, wi) => (
+                <li key={"profile3" + wi} className="relative">
+                  <div className="flex justify-start items-start pt-2">
+                    <div className="flex items-center w-30">
+                      <div className="w-1 h-1 rounded-full bg-green-500 inline-block mr-1"></div>
+                      {w.year}
+                    </div>
+                    <div
+                      className={clsx(
+                        "absolute left-[2.5px] top-[22px] w-px translate-x-[-50%] t-[50%] h-full z-[-1]",
+                        wi < works.length - 1 ? "bg-green-700" : "bg-black"
+                      )}
+                    ></div>
+                    <div>
+                      <div>{w.campaign}</div>
+                      <div>{w.position}</div>
                     </div>
                   </div>
                 </li>

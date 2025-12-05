@@ -10,13 +10,19 @@ import logoCSS from "@/assets/css.png";
 import useMedia from "@/hooks/useMedia";
 import logoGithub from "@/assets/github.svg";
 import clsx from "clsx";
+import RamdomText from "@/components/ramdomText";
+import ShadowDot from "@/components/shadowDot";
+import { getAlternate } from "@/utils/utils";
+import { useLocation } from "react-router-dom";
 
 export default function Home() {
   const isMobile = useMedia();
   const { t } = useTranslation();
+  const { pathname } = useLocation();
   useHead({
     title: t("home.title") + t("seo.title.sub"),
     meta: [{ name: "description", content: t("home.description") }],
+    ...getAlternate(pathname),
   });
   const icons = [
     {
@@ -63,14 +69,13 @@ export default function Home() {
       <div className="flex items-center justify-center h-screen color-white font-bold text-center">
         <div>
           <div className="text-4xl">Harrison Huang</div>
-          <div
-            className="rounded-[50%] w-2 h-2  mx-auto my-2 bg-sky-200
-"
-          ></div>
-          <div className="text-2xl">{t("frontendDeveloper")}</div>
+          <ShadowDot bgColor="bg-sky-200" />
+          <div className="text-2xl">
+            <RamdomText word={t("frontendDeveloper")} />
+          </div>
         </div>
       </div>
-      <div className="bg-black/80 text-white px-3 py-10">
+      <div className="bg-black/50 text-white px-3 py-10">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl font-bold">{t("skills")}</h1>
           <div className="grid grid-cols-3 mt-5 gap-3">

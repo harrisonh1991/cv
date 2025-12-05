@@ -38,3 +38,35 @@ export const getAge = (birthday: string) => {
 
 export const sleep = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
+
+export const RamdomTextEN =
+  "01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+export const getRamdomTexts = (length: number) => {
+  const texts = [];
+  for (let i = 0; i < length; i++) texts[i] = getRamdomText();
+  return texts;
+};
+
+export const getRamdomText = () => {
+  return RamdomTextEN.charAt(Math.floor(Math.random() * RamdomTextEN.length));
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const DebugLog = (...args: any[]) => {
+  if (import.meta.env.VITE_DEBUG) console.log(...args);
+};
+
+export const getAlternate = (pathname: string) => {
+  const lang = getLangFromURL();
+  console.log("lang", lang);
+  return {
+    link: [
+      {
+        rel: "alternate",
+        hreflang: lang,
+        href: `/${lang}${pathname}`,
+      },
+    ],
+  };
+};

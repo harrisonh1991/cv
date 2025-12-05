@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { getRamdomText, getRamdomTexts } from "@/utils/utils";
 
 interface TypeTextRainItem {
   text: string[];
@@ -37,8 +38,6 @@ export default function TextRain({
 }: TypeTextRainProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationIdRef = useRef<number | null>(null);
-  const characters =
-    "01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()_+-=[]{}|;:,.<>?~";
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -57,14 +56,7 @@ export default function TextRain({
 
     // 設定字元高度，用於計算超出畫面高度的限制
     const itemHeight = fontSize * wordCount;
-    const getRamdomTexts = () => {
-      const texts = [];
-      for (let i = 0; i < wordCount; i++) texts[i] = getRamdomText();
-      return texts;
-    };
-    const getRamdomText = () => {
-      return characters.charAt(Math.floor(Math.random() * characters.length));
-    };
+
     // 有機會隨機更換字元
     const ramdomSomeText = (texts: string[]) => {
       const isChange = Math.random() * 1 > 0.8;
@@ -79,11 +71,11 @@ export default function TextRain({
     // 初始化字元
     const getItemInitData = (isForStart?: boolean) => {
       return {
-        text: getRamdomTexts(),
+        text: getRamdomTexts(wordCount),
         dropSpeed: dropSpeed * (Math.random() * 0.5 + 0.5),
         fontSize: fontSize,
         x: 0 + Math.random() * canvas.width,
-        y: isForStart ? Math.random() * -canvas.height: 0 ,
+        y: isForStart ? Math.random() * -canvas.height : 0,
       };
     };
 
