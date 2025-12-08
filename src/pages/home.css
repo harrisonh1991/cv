@@ -1,0 +1,10 @@
+.backgroundline::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: white;
+  z-index: -1;
+}

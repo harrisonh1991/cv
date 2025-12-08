@@ -6,7 +6,7 @@ export interface TypeWorkLists {
   campaign: string;
   position: string;
   year: string;
-  description: string;
+  description: string[];
 }
 
 export const useWork = () => {
@@ -18,13 +18,13 @@ export const useWork = () => {
         campaign: "I.T EZHOP (HK) Limited",
         position: t("seniorwebdeveloper"),
         year: "2023-2025",
-        description: t("description"),
+        description: t("iteshop.description2").split("\n"),
       },
       {
         campaign: "I.T EZHOP (HK) Limited",
         position: t("webdeveloper"),
         year: "2018-2023",
-        description: t("description"),
+        description: t("iteshop.description1").split("\n"),
       },
     ],
     [t]

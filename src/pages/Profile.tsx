@@ -1,7 +1,7 @@
-import { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { getAge } from "@/utils/utils";
-import { AnimatePresence, motion, useInView } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useHead } from "@unhead/react";
 import clsx from "clsx";
 import { useWork } from "@/hooks/useWork";
@@ -44,7 +44,7 @@ export default function Profile() {
       },
       {
         label: t("email"),
-        value: "kye0038883work@gmail.com",
+        value: "kye0038883@gmail.com",
       },
     ],
     [t]
@@ -121,7 +121,7 @@ export default function Profile() {
               {educationLists.map((e, ei) => (
                 <li key={"profile2" + ei} className="relative">
                   <div className="flex justify-start items-start pt-2">
-                    <div className="flex items-center w-30">
+                    <div className="flex items-center min-w-30">
                       <div className="w-1 h-1 rounded-full bg-green-500 inline-block mr-1"></div>
                       {e.year}
                     </div>
@@ -157,8 +157,8 @@ export default function Profile() {
               {works.map((w, wi) => (
                 <li key={"profile3" + wi} className="relative">
                   <div className="flex justify-start items-start pt-2">
-                    <div className="flex items-center w-30">
-                      <div className="w-1 h-1 rounded-full bg-green-500 inline-block mr-1"></div>
+                    <div className="flex items-center min-w-30">
+                      <div className="w-1 h-1 rounded-full bg-green-500 inline-block mr-1 relative"></div>
                       {w.year}
                     </div>
                     <div
@@ -170,6 +170,11 @@ export default function Profile() {
                     <div>
                       <div>{w.campaign}</div>
                       <div>{w.position}</div>
+                      <ul className="list-disc list-inside">
+                        {w.description.map((d, di) => (
+                          <li key={di}>{d}</li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
                 </li>

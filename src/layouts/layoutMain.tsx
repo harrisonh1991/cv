@@ -32,6 +32,7 @@ const LayoutMain = () => {
         matches: [`/${lang}/`, `/${lang}`],
       },
       { label: t("profile"), href: `/${lang}/profile` },
+      { label: t("work"), href: `/${lang}/works` },
     ];
     return _list.map((e: MenuItem) => {
       const isCurrentPath = e.matches
