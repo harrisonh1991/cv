@@ -1,22 +1,23 @@
 const langRegex = /zh-HK|en-US/;
-const defaultLang = "en-US";
+export const langs = ['zh-HK', 'en-US'];
+const defaultLang = 'en-US';
 
 // 從本地或路徑取得語言設定，如果都不符合則使用預設語言
 export const getLang = (): string => {
-  const lang = localStorage.getItem("lang") ?? getLangFromURL();
+  const lang = localStorage.getItem('lang') ?? getLangFromURL();
   return langRegex.test(lang) ? lang : defaultLang;
 };
 
 export const getLangFromURL = (): string => {
-  return window.location.pathname.split("/")[1];
+  return window.location.pathname.split('/')[1];
 };
 
 export const blockScroll = () => {
-  document.body.style.overflow = "hidden";
+  document.body.style.overflow = 'hidden';
 };
 
 export const unblockScroll = () => {
-  document.body.style.overflow = "auto";
+  document.body.style.overflow = 'auto';
 };
 
 export const getAge = (birthday: string) => {
@@ -26,21 +27,16 @@ export const getAge = (birthday: string) => {
   let age = today.getFullYear() - birthDate.getFullYear();
   const monthDiff = today.getMonth() - birthDate.getMonth();
 
-  if (
-    monthDiff < 0 ||
-    (monthDiff === 0 && today.getDate() < birthDate.getDate())
-  ) {
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
     age--;
   }
 
   return age;
 };
 
-export const sleep = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
+export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export const RamdomTextEN =
-  "01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+export const RamdomTextEN = '01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 export const getRamdomTexts = (length: number) => {
   const texts = [];
@@ -57,16 +53,20 @@ export const DebugLog = (...args: any[]) => {
   if (import.meta.env.VITE_DEBUG) console.log(...args);
 };
 
-export const getAlternate = (pathname: string) => {
-  const lang = getLangFromURL();
-  console.log("lang", lang);
+export const getPathnameWithLang = () => {
+  const path = window.location.pathname;
+  if (langs.includes(path)) {
+    return path
+      .split('/')
+      .filter((e) => e)
+      .slice(1);
+  }
+  return path;
+};
+
+export const getUseHeadConfig = (title: string, desc?: string, t: (string) => string) => {
   return {
-    link: [
-      {
-        rel: "alternate",
-        hreflang: lang,
-        href: `/${lang}${pathname}`,
-      },
-    ],
+    title: title && `${title} |` + t('seo.title.sub'),
+    meta: [{ name: 'description', content: desc || t('home.description') }],
   };
 };
