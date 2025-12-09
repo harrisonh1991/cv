@@ -1,12 +1,10 @@
-import { useTranslation } from "react-i18next";
-import { Menu as IconMenu } from "lucide-react";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import useMedia from "@/hooks/useMedia";
-import { useRef, useMemo, Fragment } from "react";
-import DropDownMenu, {
-  type TypeDropdownMenuRef,
-} from "@/components/dropDownMenu";
-import clsx from "clsx";
+import { useTranslation } from 'react-i18next';
+import { Menu as IconMenu } from 'lucide-react';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import useMedia from '@/hooks/useMedia';
+import { useRef, useMemo, Fragment } from 'react';
+import DropDownMenu, { type TypeDropdownMenuRef } from '@/components/dropDownMenu';
+import clsx from 'clsx';
 
 interface MenuItem {
   label: string;
@@ -27,12 +25,12 @@ const LayoutMain = () => {
   const menuItems: MenuItem[] = useMemo(() => {
     const _list: MenuItem[] = [
       {
-        label: t("home"),
+        label: t('home'),
         href: `/${lang}/`,
         matches: [`/${lang}/`, `/${lang}`],
       },
-      { label: t("profile"), href: `/${lang}/profile` },
-      { label: t("work"), href: `/${lang}/works` },
+      { label: t('profile'), href: `/${lang}/profile` },
+      { label: t('developmentexperience'), href: `/${lang}/development-experiences` },
     ];
     return _list.map((e: MenuItem) => {
       const isCurrentPath = e.matches
@@ -42,19 +40,19 @@ const LayoutMain = () => {
         ? {
             ...e,
             className: clsx(
-              "font-bold",
+              'font-bold',
               isCurrentPath
-                ? "text-black bg-green-500 pointer-events-none"
-                : "text-white hover:text-black hover:bg-green-500 transition-all duration-300"
+                ? 'text-black bg-green-500 pointer-events-none'
+                : 'text-white hover:text-black hover:bg-green-500 transition-all duration-300',
             ),
           }
         : {
             ...e,
             className: clsx(
-              "font-bold",
+              'font-bold',
               isCurrentPath
-                ? "text-green-500 pointer-events-none"
-                : "text-white hover:text-green-500 transition-all duration-300"
+                ? 'text-green-500 pointer-events-none'
+                : 'text-white hover:text-green-500 transition-all duration-300',
             ),
             isCurrentPath,
           };
@@ -79,10 +77,7 @@ const LayoutMain = () => {
                 aria-expanded={menuRef.current?.isOpen}
                 aria-controls="navMenu"
               >
-                <IconMenu
-                  size={26}
-                  className="text-green-500 pointer-events-none"
-                />
+                <IconMenu size={26} className="text-green-500 pointer-events-none" />
               </div>
             </nav>
             <DropDownMenu
@@ -98,10 +93,7 @@ const LayoutMain = () => {
             <ul className="flex justify-center h-12 items-center gap-1">
               {menuItems.map((item, index) => (
                 <Fragment key={index}>
-                  <li
-                    className={clsx("p-1 group", item.className)}
-                    key={item.href}
-                  >
+                  <li className={clsx('p-1 group', item.className)} key={item.href}>
                     <a
                       className="font-bold"
                       href={item.href}
@@ -114,8 +106,8 @@ const LayoutMain = () => {
                     </a>
                     <div
                       className={clsx(
-                        "m-auto h-[3px] w-0 bg-green-500 group-hover:w-full transition-all duration-300",
-                        item.isCurrentPath && "w-full pointer-events-none"
+                        'm-auto h-[3px] w-0 bg-green-500 group-hover:w-full transition-all duration-300',
+                        item.isCurrentPath && 'w-full pointer-events-none',
                       )}
                     ></div>
                   </li>
@@ -128,7 +120,7 @@ const LayoutMain = () => {
           </nav>
         )}
       </header>
-      <main>
+      <main className="mt-12">
         <Outlet />
       </main>
     </>

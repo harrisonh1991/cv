@@ -24,11 +24,12 @@ const RandomText = ({ word }: IRandomTextProps) => {
       const unchangeIndex = unchagedIndexs[randomIndex];
       setDisplayIndex((prev) => [...prev, unchangeIndex]);
       _displayWords[unchangeIndex] = splitedWords[unchangeIndex];
+      setDisplayWords([..._displayWords]);
       unchagedIndexs = unchagedIndexs.filter((e) => e !== unchangeIndex);
 
       setTimeout(() => {
         setDisplayWords([..._displayWords]);
-      }, 250);
+      }, 500);
       if (unchagedIndexs.length === 0) clearInterval(interval.current);
     };
 

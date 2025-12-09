@@ -30,8 +30,9 @@
   "frontendlaguage": "Frontend Language",
   "versioncontrol": "Version Control",
   "useractiontracking": "User Behavior Tracking",
-  "work": "Works",
+  "developmentexperience": "Development experience",
   "iteshop.description1": "Collaborated with the design team to develop event pages with different themes, such as raffles, gashapon machines, Christmas card promotions, etc.\nCollaborated with the marketing team to update GTM configuration and optimize conversion rates.\nCommunicated with the mainland development team to optimize website performance, improve page loading speed, and enhance overall user satisfaction.",
   "iteshop.description2": "Use Vue to build the ITeshop website. Use React to develop the internal management system.",
-  "backendframework": "Backend Framework"
+  "backendframework": "Backend Framework",
+  "clickTodetail": "Click to view details"
 }

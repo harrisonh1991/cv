@@ -10,7 +10,7 @@ const pages = [
   { index: true, element: <Home /> },
   { path: 'profile', element: <Profile /> },
   {
-    path: 'works',
+    path: 'development-experiences',
     element: <Works />,
   },
 ];

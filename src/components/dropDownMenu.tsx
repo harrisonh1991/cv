@@ -2,8 +2,6 @@ import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import { type RefObject } from 'react';
 import { useEffect, useRef, memo, forwardRef, useImperativeHandle, useState } from 'react';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
 interface TypeMenuItem {
   label: string;
   href: string;
@@ -30,27 +28,6 @@ const DropDownMenu = memo(
     const rootRef = useRef<HTMLDivElement>(null);
     const [isOpen, setIsOpen] = useState(false);
 
-    useGSAP(
-      () => {
-        if (isOpen && rootRef.current) {
-          gsap.to(rootRef.current, {
-            opacity: 1,
-            y: 0,
-            duration: 0.3,
-            ease: 'easeInOut',
-          });
-        } else if (!isOpen && rootRef.current) {
-          gsap.to(rootRef.current, {
-            opacity: 0,
-            y: -10,
-            duration: 0.3,
-            ease: 'easeInOut',
-          });
-        }
-      },
-      { dependencies: [isOpen] },
-    );
-
     useEffect(() => {
       const handleClickOutside = (e: Event) => {
         const target = e.target;
@@ -69,16 +46,23 @@ const DropDownMenu = memo(
     useImperativeHandle(ref, () => ({
       open: () => setIsOpen(true),
       close: () => setIsOpen(false),
-      toggle: () => setIsOpen(!isOpen),
-      isOpen,
+      toggle: () => setIsOpen((v) => !v),
+      get isOpen() {
+        return isOpen;
+      },
     }));
 
-    return isOpen ? (
+    return (
       <section
         ref={rootRef}
-        className={clsx('absolute top-full left-0 w-full z-9998 text-nav', className)}
         id={id}
-        style={{ opacity: 0, transform: 'translateY(-10px)' }}
+        aria-hidden={!isOpen}
+        className={clsx(
+          'absolute top-full left-0 w-full z-9998 text-nav transition-all duration-200 ease-in-out',
+          !isOpen && 'opacity-0 -translate-y-2 pointer-events-none',
+          isOpen && 'opacity-100 translate-y-0 pointer-events-auto',
+          className,
+        )}
       >
         {items.map((item, index) => (
           <Link
@@ -94,7 +78,7 @@ const DropDownMenu = memo(
           </Link>
         ))}
       </section>
-    ) : null;
+    );
   }),
 );
 

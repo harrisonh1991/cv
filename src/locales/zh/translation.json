@@ -30,8 +30,9 @@
   "frontendlaguage": "前端語言",
   "versioncontrol": "版本控制",
   "useractiontracking": "用戶行為追蹤",
-  "work": "作品",
+  "developmentexperience": "開發經驗",
   "iteshop.description1": "與設計團隊合作，開發不同主題的活動頁面，如抽獎，扭蛋機，聖誕節卡主題推廣等等。\n與市場推廣團隊合作，更新GTM配置，優化轉換率。\n與內地開發團隊溝通，優化網頁性能，提高頁面加載速度，提升整體用戶滿意度。",
   "iteshop.description2": "使用 Vue 建立 ITeshop 網站。\n使用 React 開發內部管理系統。",
-  "backendframework": "後端框架"
+  "backendframework": "後端框架",
+  "clickTodetail": "點擊查看詳情"
 }
