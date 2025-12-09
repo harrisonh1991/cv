@@ -31,8 +31,7 @@ const SEO = ({ title, desc }: TypeSEOProps) => {
       { property: 'og:url', content: window.location.href },
       {
         property: 'og:image',
-        content:
-          'https://drive.google.com/file/d/1f9H2IAcl37fJtQCzi4aeSYrFzTTwSKn6/view?usp=drive_link',
+        content: ogImage,
       },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: seoTitle },

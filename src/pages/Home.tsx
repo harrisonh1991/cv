@@ -9,7 +9,7 @@ import logoCSS from '@/assets/css.png';
 import useMedia from '@/hooks/useMedia';
 import logoGithub from '@/assets/github.svg';
 import clsx from 'clsx';
-import RamdomText from '@/components/ramdomText';
+import RandomText from '@/components/randomText';
 import ShadowDot from '@/components/shadowDot';
 import logoTailwind from '@/assets/tailwind.png';
 import logoSass from '@/assets/sass.svg';
@@ -119,7 +119,7 @@ export default function Home() {
             <div className="text-4xl">Harrison Huang</div>
             <ShadowDot bgColor="bg-sky-200" />
             <div className="text-2xl">
-              <RamdomText word={t('frontendDeveloper')} />
+              <RandomText word={t('frontendDeveloper')} />
             </div>
           </div>
         </div>

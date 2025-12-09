@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { getRamdomText, getRamdomTexts } from "@/utils/utils";
+import { useEffect, useRef } from 'react';
+import { getRamdomText, getRandomTexts } from '@/utils/utils';
 
 interface TypeTextRainItem {
   text: string[];
@@ -43,7 +43,7 @@ export default function TextRain({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     // 重置 canvas 尺寸
@@ -52,7 +52,7 @@ export default function TextRain({
       canvas.height = window.innerHeight;
     };
     resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener('resize', resizeCanvas);
 
     // 設定字元高度，用於計算超出畫面高度的限制
     const itemHeight = fontSize * wordCount;
@@ -71,7 +71,7 @@ export default function TextRain({
     // 初始化字元
     const getItemInitData = (isForStart?: boolean) => {
       return {
-        text: getRamdomTexts(wordCount),
+        text: getRandomTexts(wordCount),
         dropSpeed: dropSpeed * (Math.random() * 0.5 + 0.5),
         fontSize: fontSize,
         x: 0 + Math.random() * canvas.width,
@@ -86,7 +86,7 @@ export default function TextRain({
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       items.forEach((e) => {
         e.y += e.dropSpeed;
@@ -111,7 +111,7 @@ export default function TextRain({
     draw();
 
     return () => {
-      window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener('resize', resizeCanvas);
       if (animationIdRef.current) {
         cancelAnimationFrame(animationIdRef.current);
       }

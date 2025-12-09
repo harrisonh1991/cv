@@ -38,7 +38,7 @@ export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve
 
 export const RamdomTextEN = '01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-export const getRamdomTexts = (length: number) => {
+export const getRandomTexts = (length: number) => {
   const texts = [];
   for (let i = 0; i < length; i++) texts[i] = getRamdomText();
   return texts;
