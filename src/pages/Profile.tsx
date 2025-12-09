@@ -101,7 +101,7 @@ export default function Profile() {
   useGSAP(
     () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-      ['.profile-section', '.education-section', '.works-section'].forEach((e) => {
+      ['.box1', '.box2', '.box3'].forEach((e) => {
         gsap.fromTo(
           e,
           {
@@ -111,12 +111,11 @@ export default function Profile() {
           {
             x: 0,
             opacity: 1,
-
             scrollTrigger: {
               trigger: e,
-              scrub: 1.5,
+              scrub: 1,
               start: 'top 150%',
-              end: 'bottom 50%',
+              end: 'bottom 80%',
             },
           },
         );
@@ -137,7 +136,7 @@ export default function Profile() {
           <div className="pt-2">Harrison Huang</div>
           <div className="text-2xl pt-2 pb-7">{t('frontendDeveloper')}</div>
         </section>
-        <section className="profile-section max-w-3xl m-auto grid gap-2 px-3 py-10 opacity-0">
+        <section className="box1 max-w-3xl m-auto grid gap-2 px-3 py-10 opacity-0">
           {profiles.map((p, pi) => (
             <div key={'profile1' + pi} className="flex">
               {p.label}
@@ -154,7 +153,7 @@ export default function Profile() {
             </div>
           ))}
         </section>
-        <section className="education-section max-w-3xl m-auto py-5 px-3 opacity-0">
+        <section className="box2 max-w-3xl m-auto py-5 px-3 opacity-0">
           <h1 className="text-3xl font-bold">{t('education')}</h1>
           <section className="mt-3">
             <ul>
@@ -181,7 +180,7 @@ export default function Profile() {
             </ul>
           </section>
         </section>
-        <section className="works-section max-w-3xl m-auto py-5 px-3 opacity-0">
+        <section className="box3 max-w-3xl m-auto py-5 px-3 opacity-0">
           <h1 className="text-3xl font-bold">{t('worksexperience')}</h1>
           <section className="mt-3">
             <ul>
