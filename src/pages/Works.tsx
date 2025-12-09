@@ -29,10 +29,11 @@ const Work = () => {
     },
     {
       title: 'ITeSHOP CRM',
-      description: ['Nuxtjs', 'React'],
+      description: ['React', 'Umijs', 'Antd', 'Typescript'],
       imageUrl: [ImgITeSHOPCrm1, ImgITeSHOPCrm2],
       link: '',
-      link2: '',
+      link2:
+        'https://showy-abacus-24b.notion.site/iteshop-crm-1a7dd42e2cd780fd89aef989268c16b9?pvs=73',
     },
   ];
 
@@ -80,15 +81,19 @@ const Work = () => {
                   </li>
                 ))}
               </ul>
-              <a
-                className="underline block"
-                href={w.link}
-                title={w.title}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {w.link}
-              </a>
+              {w.link ? (
+                <a
+                  className="underline block"
+                  href={w.link}
+                  title={w.title}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {w.link}
+                </a>
+              ) : (
+                <div>-</div>
+              )}
               <a
                 className="underline block"
                 href={w.link2}

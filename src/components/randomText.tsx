@@ -29,7 +29,7 @@ const RandomText = ({ word }: IRandomTextProps) => {
 
       setTimeout(() => {
         setDisplayWords([..._displayWords]);
-      }, 500);
+      }, 250);
       if (unchagedIndexs.length === 0) clearInterval(interval.current);
     };
 
