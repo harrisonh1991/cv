@@ -120,7 +120,7 @@ const LayoutMain = () => {
           </nav>
         )}
       </header>
-      <main className="mt-12">
+      <main className="mt-12 mb-20">
         <Outlet />
       </main>
     </>

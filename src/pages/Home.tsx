@@ -123,7 +123,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="bg-black/50 text-white px-3 py-10">
+        <div className="bg-black/50 text-white not-lg:px-4 py-10">
           <div className="max-w-3xl mx-auto">
             <h1 className="text-3xl font-bold">{t('skills')}</h1>
             {icons.map((i) => (

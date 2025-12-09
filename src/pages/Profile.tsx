@@ -100,30 +100,26 @@ export default function Profile() {
 
   useGSAP(
     () => {
-      const boxes = gsap.utils.toArray<Element>('.box');
-      boxes.forEach((box: Element) => {
-        gsap.to(box as any, {
-          x: 150,
-          scrollTrigger: {
-            trigger: box,
-            start: 'bottom bottom',
-            end: 'top 20%',
-            scrub: true,
-            // markers: true,
-          },
-        });
-      });
-
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       ['.profile-section', '.education-section', '.works-section'].forEach((e) => {
-        gsap.to(e, {
-          opacity: 1,
-          duration: 0.6,
-          scrollTrigger: {
-            trigger: e,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
+        gsap.fromTo(
+          e,
+          {
+            x: 150,
+            opacity: 0,
           },
-        });
+          {
+            x: 0,
+            opacity: 1,
+
+            scrollTrigger: {
+              trigger: e,
+              scrub: 1.5,
+              start: 'top 150%',
+              end: 'bottom 50%',
+            },
+          },
+        );
       });
     },
     { scope: mainRef },
@@ -132,15 +128,15 @@ export default function Profile() {
   return (
     <>
       <SEO title={t('profile')} />
-      <section className="mt-12 text-green-500" ref={mainRef}>
-        <div className="relative overflow-hidden font-bold text-4xl text-center">
+      <section className="text-green-500" ref={mainRef}>
+        <section className="relative overflow-hidden font-bold text-4xl text-center">
           <div className="absolute left-0 top-15 h-full w-full z-[-1] bg-emerald-900"></div>
           <div className="bg-white w-30 h-30 rounded-full m-auto">
             <img src={PicMe} loading="lazy" alt="Harrison Huang" className="w-30 rounded-full" />
           </div>
           <div className="pt-2">Harrison Huang</div>
           <div className="text-2xl pt-2 pb-7">{t('frontendDeveloper')}</div>
-        </div>
+        </section>
         <section className="profile-section max-w-3xl m-auto grid gap-2 px-3 py-10 opacity-0">
           {profiles.map((p, pi) => (
             <div key={'profile1' + pi} className="flex">
