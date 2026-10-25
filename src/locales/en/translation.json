@@ -26,13 +26,13 @@
   "webdeveloper": "Web Developer",
   "seniorwebdeveloper": "Senior Web Developer",
   "worksexperience": "Work Experience",
-  "frontendframework": "Frontend Framework",
-  "frontendlaguage": "Frontend Language",
+  "frontend": "Frontend",
   "versioncontrol": "Version Control",
   "useractiontracking": "User Behavior Tracking",
+  "socialmedia": "Social Media",
   "developmentexperience": "Development experience",
   "iteshop.description1": "Collaborate with the design team to develop event pages with different themes, such as raffles, gashapon machines, and Christmas card promotions. Maintain website pages. Collaborate with the marketing team to update GTM configurations and optimize conversion rates. Communicate with the mainland development team to optimize website performance, improve page loading speed, and enhance overall user satisfaction.",
   "iteshop.description2": "Build the ITeshop website and necessary components using Vue2. Develop the internal management system using React. Coordinate with the project manager to ensure on-time delivery and compliance with quality standards.\nCollaborate with the backend team to ensure seamless integration of the frontend and backend systems.",
-  "backendframework": "Backend Framework",
+  "backend": "Backend",
   "clickTodetail": "Click to view details"
 }

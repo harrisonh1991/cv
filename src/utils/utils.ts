@@ -64,7 +64,7 @@ export const getPathnameWithLang = () => {
   return path;
 };
 
-export const getUseHeadConfig = (title: string, desc?: string, t: (string) => string) => {
+export const getUseHeadConfig = (title: string, desc: string | undefined, t: (key: string) => string) => {
   return {
     title: title && `${title} |` + t('seo.title.sub'),
     meta: [{ name: 'description', content: desc || t('home.description') }],
