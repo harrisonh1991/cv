@@ -1,8 +1,9 @@
 import { useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getAge } from '@/utils/utils';
-import clsx from 'clsx';
 import SEO from '@/components/seo';
+import CyberPanel from '@/components/cyberPanel';
+import GlitchText from '@/components/glitchText';
 import PicMe from '@/assets/me.jpg';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -127,90 +128,125 @@ export default function Profile() {
   return (
     <>
       <SEO title={t('profile')} />
-      <section className="text-green-500" ref={mainRef}>
-        <section className="relative overflow-hidden font-bold text-4xl text-center">
-          <div className="absolute left-0 top-15 h-full w-full z-[-1] bg-emerald-900"></div>
-          <div className="bg-white w-30 h-30 rounded-full m-auto">
-            <img src={PicMe} loading="lazy" alt="Harrison Huang" className="w-30 rounded-full" />
-          </div>
-          <div className="pt-2">Harrison Huang</div>
-          <div className="text-2xl pt-2 pb-7">{t('frontendDeveloper')}</div>
-        </section>
-        <section className="box1 max-w-3xl m-auto grid gap-2 px-3 py-10 opacity-0">
-          {profiles.map((p, pi) => (
-            <div key={'profile1' + pi} className="flex">
-              {p.label}
-              <span className="px-1">:</span>
-              {Array.isArray(p.value) ? (
-                <div className="flex flex-col">
-                  {p.value.map((v) => (
-                    <span key={v}>{v}</span>
-                  ))}
-                </div>
-              ) : (
-                p.value
-              )}
+      <section className="relative text-slate-200" ref={mainRef}>
+        <section className="relative overflow-hidden px-3 pb-8 pt-10 text-center">
+          <div
+            className="pointer-events-none absolute inset-x-0 top-0 h-full bg-[radial-gradient(60%_80%_at_50%_0%,rgba(123,47,247,0.35),transparent_70%)]"
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyber-cyan/70 to-transparent"
+            aria-hidden="true"
+          />
+          <div className="relative flex flex-col items-center gap-3">
+            <div className="relative">
+              <div
+                className="absolute inset-0 animate-ping rounded-full bg-cyber-cyan/20"
+                aria-hidden="true"
+              />
+              <div className="relative rounded-full bg-[conic-gradient(from_0deg,var(--color-cyber-cyan),var(--color-cyber-violet),var(--color-cyber-magenta),var(--color-cyber-cyan))] p-[2px] shadow-[0_0_35px_-6px_rgba(0,240,255,0.85)]">
+                <img
+                  src={PicMe}
+                  loading="lazy"
+                  alt="Harrison Huang"
+                  className="h-30 w-30 rounded-full bg-cyber-ink object-cover grayscale transition duration-500 hover:grayscale-0"
+                />
+              </div>
             </div>
-          ))}
+            <div className="cyber-label flex items-center gap-2">
+              <span className="h-1.5 w-1.5 animate-pulse bg-cyber-lime shadow-[0_0_10px_rgba(139,255,106,0.9)]" />
+              ID_VERIFIED
+            </div>
+            <h1 className="font-mono text-3xl font-bold tracking-[0.12em] text-white sm:text-4xl">
+              <GlitchText text="Harrison Huang" />
+            </h1>
+            <div className="flex items-center gap-2 font-mono text-sm uppercase tracking-[0.25em] text-cyber-cyan">
+              <span className="text-cyber-magenta">[</span>
+              {t('frontendDeveloper')}
+              <span className="text-cyber-magenta">]</span>
+            </div>
+          </div>
         </section>
-        <section className="box2 max-w-3xl m-auto py-5 px-3 opacity-0">
-          <h1 className="text-3xl font-bold">{t('education')}</h1>
-          <section className="mt-3">
-            <ul>
-              {educationLists.map((e, ei) => (
-                <li key={'profile2' + ei} className="relative">
-                  <div className="flex justify-start items-start pt-2">
-                    <div className="flex items-center min-w-30">
-                      <div className="w-1 h-1 rounded-full bg-green-500 inline-block mr-1"></div>
-                      {e.year}
-                    </div>
-                    <div
-                      className={clsx(
-                        'absolute left-[2.5px] top-[22px] w-px translate-x-[-50%] t-[50%] h-full z-[-1]',
-                        ei < educationLists.length - 1 ? 'bg-green-700' : 'bg-black',
-                      )}
-                    ></div>
-                    <div>
-                      <div>{e.title}</div>
-                      <div>{e.school}</div>
-                    </div>
+        <section className="box1 mx-auto max-w-3xl px-3 py-8 opacity-0">
+          <CyberPanel label="PROFILE_DATA">
+            <div className="grid gap-2">
+              {profiles.map((p, pi) => (
+                <div
+                  key={'profile1' + pi}
+                  className="flex flex-col gap-x-3 gap-y-1 border-b border-cyber-cyan/10 pb-2 last:border-0 last:pb-0 sm:flex-row sm:items-start"
+                >
+                  <div className="flex min-w-32 items-center gap-2 font-mono text-xs tracking-[0.15em] text-cyber-cyan/80">
+                    <span className="text-cyber-magenta">›</span>
+                    {p.label}
                   </div>
-                </li>
-              ))}
-            </ul>
-          </section>
-        </section>
-        <section className="box3 max-w-3xl m-auto py-5 px-3 opacity-0">
-          <h1 className="text-3xl font-bold">{t('worksexperience')}</h1>
-          <section className="mt-3">
-            <ul>
-              {works.map((w, wi) => (
-                <li key={'profile3' + wi} className="relative">
-                  <div className="flex justify-start items-start pt-2">
-                    <div className="flex items-center min-w-30">
-                      <div className="w-1 h-1 rounded-full bg-green-500 inline-block mr-1 relative"></div>
-                      {w.year}
-                    </div>
-                    <div
-                      className={clsx(
-                        'absolute left-[2.5px] top-[22px] w-px translate-x-[-50%] t-[50%] h-full z-[-1]',
-                        wi < works.length - 1 ? 'bg-green-700' : 'bg-black',
-                      )}
-                    ></div>
-                    <div>
-                      <div className="font-bold underline">{w.position}</div>
-                      <div>{w.campaign}</div>
-                      <ul className="list-disc list-inside">
-                        {w.description.map((d, di) => (
-                          <li key={di}>{d}</li>
+                  <div className="flex-1 text-slate-200">
+                    {Array.isArray(p.value) ? (
+                      <div className="flex flex-col">
+                        {p.value.map((v) => (
+                          <span key={v}>{v}</span>
                         ))}
-                      </ul>
-                    </div>
+                      </div>
+                    ) : (
+                      p.value
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CyberPanel>
+        </section>
+        <section className="box2 mx-auto max-w-3xl px-3 py-4 opacity-0">
+          <h2 className="flex items-center gap-2 font-mono text-xl font-bold uppercase tracking-[0.25em] text-cyber-cyan">
+            <span className="text-cyber-magenta">//</span>
+            {t('education')}
+            <span className="hud-line flex-1" />
+          </h2>
+          <CyberPanel className="mt-4">
+            <ul className="space-y-4">
+              {educationLists.map((e, ei) => (
+                <li key={'profile2' + ei} className="relative pl-5">
+                  <span className="absolute left-0 top-2 h-2 w-2 rotate-45 border border-cyber-cyan bg-cyber-ink shadow-[0_0_10px_rgba(0,240,255,0.8)]" />
+                  {ei < educationLists.length - 1 && (
+                    <span className="absolute left-[3px] top-4 -bottom-4 w-px bg-gradient-to-b from-cyber-cyan/60 to-cyber-magenta/20" />
+                  )}
+                  <div className="font-mono text-xs tracking-[0.2em] text-cyber-cyan/80">{e.year}</div>
+                  <div className="font-semibold text-slate-100">{e.title}</div>
+                  <div className="text-sm text-slate-400">
+                    {e.level} · {e.school}
                   </div>
                 </li>
               ))}
             </ul>
-          </section>
+          </CyberPanel>
+        </section>
+        <section className="box3 mx-auto max-w-3xl px-3 py-4 opacity-0">
+          <h2 className="flex items-center gap-2 font-mono text-xl font-bold uppercase tracking-[0.25em] text-cyber-cyan">
+            <span className="text-cyber-magenta">//</span>
+            {t('worksexperience')}
+            <span className="hud-line flex-1" />
+          </h2>
+          <CyberPanel className="mt-4">
+            <ul className="space-y-5">
+              {works.map((w, wi) => (
+                <li key={'profile3' + wi} className="relative pl-5">
+                  <span className="absolute left-0 top-2 h-2 w-2 rotate-45 border border-cyber-magenta bg-cyber-ink shadow-[0_0_10px_rgba(255,43,214,0.8)]" />
+                  {wi < works.length - 1 && (
+                    <span className="absolute left-[3px] top-4 -bottom-5 w-px bg-gradient-to-b from-cyber-magenta/60 to-cyber-cyan/20" />
+                  )}
+                  <div className="font-mono text-xs tracking-[0.2em] text-cyber-magenta/90">{w.year}</div>
+                  <div className="font-mono font-bold uppercase tracking-[0.1em] text-cyber-cyan">
+                    {w.position}
+                  </div>
+                  <div className="text-slate-300">{w.campaign}</div>
+                  <ul className="mt-1 list-inside list-disc space-y-1 text-sm text-slate-400 marker:text-cyber-magenta">
+                    {w.description.map((d, di) => (
+                      <li key={di}>{d}</li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          </CyberPanel>
         </section>
       </section>
     </>

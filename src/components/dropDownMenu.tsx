@@ -58,7 +58,7 @@ const DropDownMenu = memo(
         id={id}
         aria-hidden={!isOpen}
         className={clsx(
-          'absolute top-full left-0 w-full z-9998 text-nav transition-all duration-200 ease-in-out',
+          'absolute top-full left-0 w-full z-9998 font-mono transition-all duration-200 ease-in-out',
           !isOpen && 'opacity-0 -translate-y-2 pointer-events-none',
           isOpen && 'opacity-100 translate-y-0 pointer-events-auto',
           className,

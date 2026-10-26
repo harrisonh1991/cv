@@ -11,8 +11,16 @@ export function LineTitle({ level = 1, title }: LineTitleProps) {
   return createElement(
     `h${level}`,
     {
-      className: 'text-xl font-semibold backgroundline relative text-center',
+      className:
+        'flex min-w-0 flex-1 items-center gap-2 font-mono text-sm font-semibold uppercase tracking-[0.25em] text-cyber-cyan',
     },
-    <span className="px-2 bg-black inline-block">{title}</span>,
+    <span key="mark" className="text-cyber-magenta">
+      //
+    </span>,
+    <span key="title" className="truncate">
+      {title}
+    </span>,
+    <span key="line" className="hud-line flex-1" />,
   );
 }
+

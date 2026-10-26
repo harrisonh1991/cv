@@ -7,11 +7,11 @@ interface LoadingProps {
   className?: string;
 }
 
-const Loading = ({ size = 30, color = "", className = "" }: LoadingProps) => {
+const Loading = ({ size = 30, color = '', className = '' }: LoadingProps) => {
   return (
     <div className="flex justify-center items-center">
       <LoaderCircle
-        className={clsx("animate-spin", className)}
+        className={clsx('animate-spin text-cyber-cyan', className)}
         size={size}
         color={color}
       />

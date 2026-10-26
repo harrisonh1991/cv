@@ -1,5 +1,13 @@
 import type { ReactNode } from 'react';
+import clsx from 'clsx';
 
-export default function ContentContainer({ children }: { children: ReactNode }) {
-  return <div className="max-w-3xl m-auto py-5 px-3">{children}</div>;
+export default function ContentContainer({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return <div className={clsx('mx-auto max-w-3xl px-3 py-8', className)}>{children}</div>;
 }
+

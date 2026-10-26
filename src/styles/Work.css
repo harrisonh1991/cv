@@ -1,0 +1,48 @@
+/* 作品卡片：霓虹光暈 + 掃光 */
+.work-card {
+  position: relative;
+  transition:
+    transform 0.35s ease,
+    filter 0.35s ease;
+}
+
+.work-card:hover {
+  transform: translateY(-4px);
+  filter: drop-shadow(0 0 24px rgba(0, 240, 255, 0.35));
+}
+
+.work-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: var(--cyber-clip);
+  background: linear-gradient(
+    120deg,
+    transparent 42%,
+    rgba(0, 240, 255, 0.16) 50%,
+    transparent 58%
+  );
+  background-size: 250% 100%;
+  background-position: 130% 0;
+  opacity: 0;
+  transition:
+    background-position 0.75s ease,
+    opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.work-card:hover::after {
+  opacity: 1;
+  background-position: -30% 0;
+}
+
+/* Swiper 霓虹分頁 */
+.work-swiper {
+  --swiper-theme-color: var(--color-cyber-magenta);
+  --swiper-pagination-color: var(--color-cyber-magenta);
+  --swiper-pagination-bullet-inactive-color: var(--color-cyber-cyan);
+  --swiper-pagination-bullet-inactive-opacity: 0.45;
+  --swiper-pagination-bullet-size: 6px;
+  --swiper-pagination-bottom: 6px;
+}
+

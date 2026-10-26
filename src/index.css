@@ -1,5 +1,160 @@
 @import 'tailwindcss';
 
+/* ===== Cyberpunk design tokens ===== */
+@theme {
+  --color-cyber-ink: #04060f;
+  --color-cyber-deep: #070b16;
+  --color-cyber-panel: #0a0f1f;
+  --color-cyber-line: #1b2544;
+  --color-cyber-cyan: #00f0ff;
+  --color-cyber-magenta: #ff2bd6;
+  --color-cyber-violet: #7b2ff7;
+  --color-cyber-lime: #8bff6a;
+  --font-mono: ui-monospace, 'Cascadia Code', 'JetBrains Mono', 'Fira Code', Menlo, Consolas,
+    'Noto Sans Mono CJK TC', monospace;
+}
+
+:root {
+  --spacing: 5px;
+  --cyber-clip: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
+  --cyber-clip-sm: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px);
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* 全局背景：霓虹網格 + 紫青洋紅光暈 */
+  body {
+    min-height: 100vh;
+    background-color: var(--color-cyber-ink);
+    color: #d9e7ff;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+      'Helvetica Neue', Arial, 'Noto Sans', 'Noto Sans TC', sans-serif;
+    background-image:
+      linear-gradient(to right, rgba(0, 240, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 240, 255, 0.045) 1px, transparent 1px),
+      radial-gradient(65% 55% at 50% -5%, rgba(123, 47, 247, 0.28), transparent 70%),
+      radial-gradient(45% 40% at 100% 10%, rgba(255, 43, 214, 0.16), transparent 70%),
+      radial-gradient(55% 45% at 0% 90%, rgba(0, 240, 255, 0.14), transparent 70%),
+      linear-gradient(180deg, #04060f 0%, #070b19 45%, #04060f 100%);
+    background-size: 48px 48px, 48px 48px, auto, auto, auto, auto;
+    background-repeat: repeat, repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+    background-attachment: fixed;
+  }
+
+  /* CRT 掃描線 */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.6;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 240, 255, 0.045) 0,
+      rgba(0, 240, 255, 0.045) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  }
+
+  ::selection {
+    background: var(--color-cyber-magenta);
+    color: var(--color-cyber-ink);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #06090f;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--color-cyber-cyan), var(--color-cyber-magenta));
+    border: 2px solid #06090f;
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--color-cyber-cyan);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* 切角霓虹外框（1px 漸變邊） */
+  .cyber-frame {
+    position: relative;
+    padding: 1px;
+    background: linear-gradient(
+      140deg,
+      rgba(0, 240, 255, 0.9),
+      rgba(123, 47, 247, 0.45) 45%,
+      rgba(255, 43, 214, 0.85)
+    );
+    clip-path: var(--cyber-clip);
+  }
+
+  .cyber-frame-inner {
+    position: relative;
+    height: 100%;
+    background: linear-gradient(155deg, rgba(10, 15, 31, 0.96), rgba(4, 6, 15, 0.97));
+    clip-path: var(--cyber-clip);
+  }
+
+  /* 小尺寸切角框（icon 用） */
+  .cyber-square {
+    padding: 1px;
+    background: linear-gradient(
+      140deg,
+      var(--color-cyber-cyan),
+      rgba(123, 47, 247, 0.7) 55%,
+      var(--color-cyber-magenta)
+    );
+    clip-path: var(--cyber-clip-sm);
+  }
+
+  .cyber-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    line-height: 1.4;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-cyber-cyan);
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.14), rgba(255, 43, 214, 0.1));
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    clip-path: var(--cyber-clip-sm);
+  }
+
+  .cyber-label {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(0, 240, 255, 0.72);
+  }
+}
+
 @layer utilities {
   @keyframes flicker {
     0%,
@@ -14,17 +169,112 @@
   .animate-flicker {
     animation: flicker 0.5s linear;
   }
+
+  /* 標題 glitch（需搭配 data-text） */
+  .glitch {
+    position: relative;
+    display: inline-block;
+    color: #f4fbff;
+    text-shadow:
+      0 0 6px rgba(0, 240, 255, 0.55),
+      0 0 28px rgba(0, 240, 255, 0.3);
+  }
+
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0.85;
+  }
+
+  .glitch::before {
+    color: var(--color-cyber-magenta);
+    text-shadow: 0 0 10px rgba(255, 43, 214, 0.8);
+    clip-path: inset(0 0 58% 0);
+    animation: glitch-a 5s infinite steps(1, end);
+  }
+
+  .glitch::after {
+    color: var(--color-cyber-cyan);
+    clip-path: inset(56% 0 0 0);
+    animation: glitch-b 4.2s infinite steps(1, end);
+  }
+
+  .text-glow-cyan {
+    text-shadow:
+      0 0 10px rgba(0, 240, 255, 0.7),
+      0 0 32px rgba(0, 240, 255, 0.35);
+  }
+
+  .text-glow-magenta {
+    text-shadow:
+      0 0 10px rgba(255, 43, 214, 0.7),
+      0 0 32px rgba(255, 43, 214, 0.35);
+  }
+
+  /* HUD 分隔線 */
+  .hud-line {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      rgba(0, 240, 255, 0.55),
+      rgba(0, 240, 255, 0.05),
+      transparent
+    );
+  }
+
+  /* HUD 斜線裝飾 */
+  .hud-slash {
+    background: repeating-linear-gradient(
+      115deg,
+      rgba(255, 43, 214, 0.9) 0,
+      rgba(255, 43, 214, 0.9) 1px,
+      transparent 1px,
+      transparent 5px
+    );
+  }
 }
 
-:root {
-  --spacing: 5px;
+@keyframes glitch-a {
+  0%,
+  84%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  85% {
+    transform: translate3d(-4px, -2px, 0);
+  }
+  87% {
+    transform: translate3d(3px, 1px, 0);
+  }
+  89% {
+    transform: translate3d(-2px, 1px, 0);
+  }
+  91% {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
-/* 應用全局樣式 */
-:root {
-  color-scheme: dark;
-  background-color: var(--color-black);
-  color: var(--color-white);
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+@keyframes glitch-b {
+  0%,
+  78%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  79% {
+    transform: translate3d(4px, 2px, 0);
+  }
+  81% {
+    transform: translate3d(-3px, -1px, 0);
+  }
+  83% {
+    transform: translate3d(2px, 0, 0);
+  }
+  85% {
+    transform: translate3d(0, 0, 0);
+  }
 }
+
