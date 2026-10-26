@@ -43,5 +43,7 @@
   "nextImage": "下一張",
   "imageCounter": "第 {{current}} / {{total}} 張",
   "close": "關閉",
-  "noPublicUrl": "暫無公開網址"
+  "noPublicUrl": "暫無公開網址",
+  "personal": "私人",
+  "work": "工作"
 }

@@ -8,6 +8,10 @@ import PicMe from '@/assets/me.jpg';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import PointDescriptions from '@/components/pointLists';
+import { Description } from '@/components/description';
+import { CyberTitle, TagTitle } from '@/components/title';
+import GsapWorkContainer from '@/components/gsapWorkContainer';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -167,7 +171,7 @@ export default function Profile() {
             </div>
           </div>
         </section>
-        <section className="box1 mx-auto max-w-3xl px-3 py-8 opacity-0">
+        <GsapWorkContainer className="box1">
           <CyberPanel label="PROFILE_DATA">
             <div className="grid gap-2">
               {profiles.map((p, pi) => (
@@ -194,13 +198,9 @@ export default function Profile() {
               ))}
             </div>
           </CyberPanel>
-        </section>
-        <section className="box2 mx-auto max-w-3xl px-3 py-4 opacity-0">
-          <h2 className="flex items-center gap-2 font-mono text-xl font-bold uppercase tracking-[0.25em] text-cyber-cyan">
-            <span className="text-cyber-magenta">//</span>
-            {t('education')}
-            <span className="hud-line flex-1" />
-          </h2>
+        </GsapWorkContainer>
+        <GsapWorkContainer className="box2">
+          <CyberTitle title={t('education')} />
           <CyberPanel className="mt-4">
             <ul className="space-y-4">
               {educationLists.map((e, ei) => (
@@ -209,22 +209,16 @@ export default function Profile() {
                   {ei < educationLists.length - 1 && (
                     <span className="absolute left-[3px] top-4 -bottom-4 w-px bg-gradient-to-b from-cyber-cyan/60 to-cyber-magenta/20" />
                   )}
-                  <div className="font-mono text-xs tracking-[0.2em] text-cyber-cyan/80">{e.year}</div>
+                  <TagTitle title={e.year} />
                   <div className="font-semibold text-slate-100">{e.title}</div>
-                  <div className="text-sm text-slate-400">
-                    {e.level} · {e.school}
-                  </div>
+                  <Description content={`${e.level} · ${e.school}`} />
                 </li>
               ))}
             </ul>
           </CyberPanel>
-        </section>
-        <section className="box3 mx-auto max-w-3xl px-3 py-4 opacity-0">
-          <h2 className="flex items-center gap-2 font-mono text-xl font-bold uppercase tracking-[0.25em] text-cyber-cyan">
-            <span className="text-cyber-magenta">//</span>
-            {t('worksexperience')}
-            <span className="hud-line flex-1" />
-          </h2>
+        </GsapWorkContainer>
+        <GsapWorkContainer className="box3">
+          <CyberTitle title={t('worksexperience')} />
           <CyberPanel className="mt-4">
             <ul className="space-y-5">
               {works.map((w, wi) => (
@@ -233,21 +227,17 @@ export default function Profile() {
                   {wi < works.length - 1 && (
                     <span className="absolute left-[3px] top-4 -bottom-5 w-px bg-gradient-to-b from-cyber-magenta/60 to-cyber-cyan/20" />
                   )}
-                  <div className="font-mono text-xs tracking-[0.2em] text-cyber-magenta/90">{w.year}</div>
+                  <TagTitle title={w.year} theme="Pink" />
                   <div className="font-mono font-bold uppercase tracking-[0.1em] text-cyber-cyan">
                     {w.position}
                   </div>
                   <div className="text-slate-300">{w.campaign}</div>
-                  <ul className="mt-1 list-inside list-disc space-y-1 text-sm text-slate-400 marker:text-cyber-magenta">
-                    {w.description.map((d, di) => (
-                      <li key={di}>{d}</li>
-                    ))}
-                  </ul>
+                  <PointDescriptions lists={w.description} />
                 </li>
               ))}
             </ul>
           </CyberPanel>
-        </section>
+        </GsapWorkContainer>
       </section>
     </>
   );

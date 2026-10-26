@@ -43,5 +43,7 @@
   "nextImage": "Next image",
   "imageCounter": "Image {{current}} of {{total}}",
   "close": "Close",
-  "noPublicUrl": "No public URL"
+  "noPublicUrl": "No public URL",
+  "personal": "Personal",
+  "work": "Work"
 }

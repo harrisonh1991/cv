@@ -21,30 +21,43 @@ import { useTranslation } from 'react-i18next';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import '@/styles/Work.css';
+import PointDescriptions from '@/components/pointLists';
 
 interface TypeWork {
   title: string;
+  isPersonal: boolean;
   description: string[];
   imageUrl: string[] | string;
   link: string;
-  link2: string;
+  workflow: string;
 }
 
 const works: TypeWork[] = [
   {
     title: 'ITeSHOP',
+    isPersonal: false,
     description: ['Nuxtjs', 'Vue 2'],
     imageUrl: [ImgITeSHOP],
     link: 'https://hk.iteshop.com/',
-    link2: 'https://showy-abacus-24b.notion.site/iteshop-1a1dd42e2cd7806c834eff21fc9cc73f?pvs=73',
+    workflow:
+      '建立登入，產品列表，產品詳情，條文等頁面\n建立營運維護頁面時所需的組件\n接入 GTM 進行用戶追蹤',
   },
   {
     title: 'ITeSHOP CRM',
+    isPersonal: false,
     description: ['React', 'Umijs', 'Antd', 'Typescript'],
     imageUrl: [ImgITeSHOPCrm1, ImgITeSHOPCrm2],
     link: '',
-    link2:
-      'https://showy-abacus-24b.notion.site/iteshop-crm-1a7dd42e2cd780fd89aef989268c16b9?pvs=73',
+    workflow:
+      '優化頁面編輯器-加入數值驗證，下拉式清單，有條件顯示版面，樣式控制等等\n建立退貨，產品，用戶等等頁面，協助營運提升效率\n建立報表，更快顯示營運所需要的數據，更好調整營運策略',
+  },
+  {
+    title: 'HayoPLay',
+    isPersonal: true,
+    description: ['React', 'NextJs', 'Typescript', 'Redis', 'Cloudflare', 'Hetzner VPS'],
+    imageUrl: [],
+    link: 'https://hayoplay.com/',
+    workflow: '',
   },
 ];
 
@@ -94,96 +107,94 @@ const Work = () => {
         </span>
       </header>
       <section className="space-y-5">
-        {works.map((w, wi) => (
-          <div className="work-card" key={`w1-${wi}`}>
-            <CyberPanel>
-              <article className="flex w-full flex-col gap-4 lg:flex-row">
-                <div className="w-full lg:w-2/5">
-                  {Array.isArray(w.imageUrl) ? (
-                    <Swiper
-                      className="work-swiper border border-cyber-cyan/20 bg-cyber-ink"
-                      modules={[Autoplay, Pagination]}
-                      spaceBetween={30}
-                      slidesPerView={1}
-                      autoplay={AUTOPLAY_OPTIONS}
-                      onSwiper={(swiper) => {
-                        swiperRefs.current[wi] = swiper;
-                      }}
-                    >
-                      {w.imageUrl.map((url, urli) => (
-                        <SwiperSlide key={`w2-${urli}`}>
-                          <WorkScreenshot
-                            className="border-0"
-                            src={url}
-                            alt={w.title}
-                            label={t('viewScreenshot')}
-                            onOpen={() => setPreview({ workIndex: wi, imageIndex: urli })}
-                          />
-                        </SwiperSlide>
-                      ))}
-                    </Swiper>
-                  ) : (
-                    <WorkScreenshot
-                      src={w.imageUrl}
-                      alt={w.title}
-                      label={t('viewScreenshot')}
-                      onOpen={() => setPreview({ workIndex: wi, imageIndex: 0 })}
-                    />
-                  )}
-                </div>
-                <div className="flex flex-1 flex-col gap-2">
-                  <div className="flex items-baseline gap-2">
-                    <span className="font-mono text-[10px] tracking-[0.2em] text-cyber-magenta">
-                      {String(wi + 1).padStart(2, '0')}
-                    </span>
-                    <h2 className="font-mono text-xl font-bold uppercase tracking-[0.12em] text-cyber-cyan text-glow-cyan">
-                      {w.title}
-                    </h2>
-                  </div>
-                  <ul className="flex flex-wrap gap-1.5">
-                    {w.description.map((desc, desci) => (
-                      <li className="cyber-chip" key={`w3-${desci}`}>
-                        {desc}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="mt-1 flex flex-col gap-1 text-sm">
-                    {w.link ? (
-                      <a
-                        className="group flex w-fit items-center gap-1 break-all font-mono text-xs text-slate-300 transition-colors duration-300 hover:text-cyber-magenta"
-                        href={w.link}
-                        title={w.title}
-                        target="_blank"
-                        rel="noopener noreferrer"
+        {works.map((w, wi) => {
+          const workflows = w.workflow.split('\n').filter(Boolean);
+
+          return (
+            <div className="work-card" key={`w1-${wi}`}>
+              <CyberPanel>
+                <article className="flex w-full flex-col gap-4 lg:flex-row">
+                  <div className="w-full lg:w-2/5">
+                    {Array.isArray(w.imageUrl) ? (
+                      <Swiper
+                        className="work-swiper border border-cyber-cyan/20 bg-cyber-ink"
+                        modules={[Autoplay, Pagination]}
+                        spaceBetween={30}
+                        slidesPerView={1}
+                        autoplay={AUTOPLAY_OPTIONS}
+                        onSwiper={(swiper) => {
+                          swiperRefs.current[wi] = swiper;
+                        }}
                       >
-                        <span className="text-cyber-cyan/70 transition-colors duration-300 group-hover:text-cyber-magenta">
-                          ↗
-                        </span>
-                        {w.link}
-                      </a>
+                        {w.imageUrl.map((url, urli) => (
+                          <SwiperSlide key={`w2-${urli}`}>
+                            <WorkScreenshot
+                              className="border-0"
+                              src={url}
+                              alt={w.title}
+                              label={t('viewScreenshot')}
+                              onOpen={() => setPreview({ workIndex: wi, imageIndex: urli })}
+                            />
+                          </SwiperSlide>
+                        ))}
+                      </Swiper>
                     ) : (
-                      <div className="font-mono text-xs text-slate-500">
-                        - // {t('noPublicUrl')}
-                      </div>
+                      <WorkScreenshot
+                        src={w.imageUrl}
+                        alt={w.title}
+                        label={t('viewScreenshot')}
+                        onOpen={() => setPreview({ workIndex: wi, imageIndex: 0 })}
+                      />
                     )}
-                    <a
-                      className="group flex w-fit items-center gap-1 font-mono text-xs text-cyber-cyan underline decoration-cyber-cyan/30 underline-offset-4 transition-colors duration-300 hover:text-cyber-magenta hover:decoration-cyber-magenta/60"
-                      href={w.link2}
-                      title={t('clickTodetail')}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {t('clickTodetail')}
-                      <span className="transition-transform duration-300 group-hover:translate-x-1">
-                        ›
-                      </span>
-                    </a>
                   </div>
-                </div>
-              </article>
-            </CyberPanel>
-          </div>
-        ))}
+                  <div className="flex flex-1 flex-col gap-2">
+                    <div className="flex items-baseline gap-2">
+                      <span className="font-mono text-[10px] tracking-[0.2em] text-cyber-magenta">
+                        {String(wi + 1).padStart(2, '0')}
+                      </span>
+                      <h2 className="font-mono text-xl font-bold uppercase tracking-[0.12em] text-cyber-cyan text-glow-cyan">
+                        {w.title}
+                      </h2>
+                      <span className="text-[9px] text-cyber-cyan/50">
+                        #{t(w.isPersonal ? 'personal' : 'work')}
+                      </span>
+                    </div>
+                    <ul className="flex flex-wrap gap-1.5">
+                      {w.description.map((desc, desci) => (
+                        <li className="cyber-chip" key={`w3-${desci}`}>
+                          {desc}
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-1 flex flex-col gap-1">
+                      {w.link ? (
+                        <a
+                          className="group flex w-fit items-center gap-1 break-all font-mono text-xs text-slate-300 transition-colors duration-300 hover:text-cyber-magenta"
+                          href={w.link}
+                          title={w.title}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <span className="text-cyber-cyan/70 transition-colors duration-300 group-hover:text-cyber-magenta">
+                            ↗
+                          </span>
+                          {w.link}
+                        </a>
+                      ) : (
+                        <div className="font-mono text-xs text-slate-500">
+                          - // {t('noPublicUrl')}
+                        </div>
+                      )}
+                    </div>
+                    <div>
+                      <PointDescriptions lists={workflows} />
+                    </div>
+                  </div>
+                </article>
+              </CyberPanel>
+            </div>
+          );
+        })}
       </section>
 
       <Dialog open={preview !== null} onOpenChange={(open) => !open && closePreview()}>
@@ -204,7 +215,10 @@ const Work = () => {
           <div className="flex items-start justify-between gap-3 border-b border-cyber-cyan/20 px-3 py-2">
             <div className="min-w-0">
               <DialogTitle className="truncate">{previewWork?.title ?? ''}</DialogTitle>
-              <DialogDescription className="mt-1 text-[10px] uppercase tracking-[0.2em]" aria-live="polite">
+              <DialogDescription
+                className="mt-1 text-[10px] uppercase tracking-[0.2em]"
+                aria-live="polite"
+              >
                 {preview
                   ? t('imageCounter', {
                       current: preview.imageIndex + 1,
@@ -253,7 +267,7 @@ const Work = () => {
           <div className="flex items-center gap-2 px-3 py-1.5">
             <span className="hud-line flex-1" />
             <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-cyber-cyan/40">
-              {previewImages.length > 1 && `← → ${t('nextImage')} · `}ESC {t('close')}
+              {previewImages.length > 1 && `← → ${t('nextImage')} · `}
             </span>
           </div>
         </DialogContent>
