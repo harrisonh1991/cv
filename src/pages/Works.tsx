@@ -1,5 +1,17 @@
+import { useEffect, useRef, useState } from 'react';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import type { Swiper as SwiperClass } from 'swiper';
 import SEO from '@/components/seo';
 import CyberPanel from '@/components/cyberPanel';
+import WorkScreenshot from '@/components/workScreenshot';
+import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import ImgITeSHOP from '@/assets/iteshop.jpg';
 import ImgITeSHOPCrm1 from '@/assets/iteshopCrm1.png';
 import ImgITeSHOPCrm2 from '@/assets/iteshopCrm2.png';
@@ -18,30 +30,62 @@ interface TypeWork {
   link2: string;
 }
 
+const works: TypeWork[] = [
+  {
+    title: 'ITeSHOP',
+    description: ['Nuxtjs', 'Vue 2'],
+    imageUrl: [ImgITeSHOP],
+    link: 'https://hk.iteshop.com/',
+    link2: 'https://showy-abacus-24b.notion.site/iteshop-1a1dd42e2cd7806c834eff21fc9cc73f?pvs=73',
+  },
+  {
+    title: 'ITeSHOP CRM',
+    description: ['React', 'Umijs', 'Antd', 'Typescript'],
+    imageUrl: [ImgITeSHOPCrm1, ImgITeSHOPCrm2],
+    link: '',
+    link2:
+      'https://showy-abacus-24b.notion.site/iteshop-crm-1a7dd42e2cd780fd89aef989268c16b9?pvs=73',
+  },
+];
+
+/** 統一將 imageUrl 轉為陣列，讓單圖與多圖走同一套預覽邏輯 */
+const toImageList = (imageUrl: string[] | string) =>
+  Array.isArray(imageUrl) ? imageUrl : [imageUrl];
+
+const AUTOPLAY_OPTIONS = { delay: 3000, disableOnInteraction: false };
+
 const Work = () => {
   const { t } = useTranslation();
-  const works: TypeWork[] = [
-    {
-      title: "ITeSHOP",
-      description: ["Nuxtjs", "Vue 2"],
-      imageUrl: [ImgITeSHOP],
-      link: "https://hk.iteshop.com/",
-      link2:
-        "https://showy-abacus-24b.notion.site/iteshop-1a1dd42e2cd7806c834eff21fc9cc73f?pvs=73",
-    },
-    {
-      title: "ITeSHOP CRM",
-      description: ["React", "Umijs", "Antd", "Typescript"],
-      imageUrl: [ImgITeSHOPCrm1, ImgITeSHOPCrm2],
-      link: "",
-      link2:
-        "https://showy-abacus-24b.notion.site/iteshop-crm-1a7dd42e2cd780fd89aef989268c16b9?pvs=73",
-    },
-  ];
+  const [preview, setPreview] = useState<{ workIndex: number; imageIndex: number } | null>(null);
+  const swiperRefs = useRef<(SwiperClass | null)[]>([]);
+
+  const previewWork = preview ? works[preview.workIndex] : undefined;
+  const previewImages = previewWork ? toImageList(previewWork.imageUrl) : [];
+  const previewImage = preview ? previewImages[preview.imageIndex] : undefined;
+
+  const closePreview = () => setPreview(null);
+
+  const stepPreview = (step: number) => {
+    setPreview((prev) => {
+      if (!prev) return prev;
+      const total = toImageList(works[prev.workIndex].imageUrl).length;
+      if (total <= 1) return prev;
+      return { ...prev, imageIndex: (prev.imageIndex + step + total) % total };
+    });
+  };
+
+  /** 預覽期間暫停輪播，關閉後恢復（Swiper 的 autoplay prop 不會在執行期更新） */
+  useEffect(() => {
+    swiperRefs.current.forEach((swiper) => {
+      if (!swiper?.autoplay) return;
+      if (preview) swiper.autoplay.stop();
+      else swiper.autoplay.start();
+    });
+  }, [preview]);
 
   return (
     <div className="mx-auto max-w-3xl px-3">
-      <SEO title="developmentexperience" />
+      <SEO title={t('developmentexperience')} />
       <header className="mb-5 flex flex-wrap items-center gap-3 pt-2">
         <span className="cyber-label text-cyber-magenta">03 // WORK_LOGS</span>
         <span className="hud-line flex-1" />
@@ -61,25 +105,29 @@ const Work = () => {
                       modules={[Autoplay, Pagination]}
                       spaceBetween={30}
                       slidesPerView={1}
-                      autoplay={{ delay: 3000, disableOnInteraction: false }}
+                      autoplay={AUTOPLAY_OPTIONS}
+                      onSwiper={(swiper) => {
+                        swiperRefs.current[wi] = swiper;
+                      }}
                     >
                       {w.imageUrl.map((url, urli) => (
                         <SwiperSlide key={`w2-${urli}`}>
-                          <img
-                            className="h-auto w-full object-cover"
-                            loading="lazy"
+                          <WorkScreenshot
+                            className="border-0"
                             src={url}
                             alt={w.title}
+                            label={t('viewScreenshot')}
+                            onOpen={() => setPreview({ workIndex: wi, imageIndex: urli })}
                           />
                         </SwiperSlide>
                       ))}
                     </Swiper>
                   ) : (
-                    <img
-                      className="w-full border border-cyber-cyan/20"
-                      loading="lazy"
+                    <WorkScreenshot
                       src={w.imageUrl}
                       alt={w.title}
+                      label={t('viewScreenshot')}
+                      onOpen={() => setPreview({ workIndex: wi, imageIndex: 0 })}
                     />
                   )}
                 </div>
@@ -114,7 +162,9 @@ const Work = () => {
                         {w.link}
                       </a>
                     ) : (
-                      <div className="font-mono text-xs text-slate-500">- // NO PUBLIC URL</div>
+                      <div className="font-mono text-xs text-slate-500">
+                        - // {t('noPublicUrl')}
+                      </div>
                     )}
                     <a
                       className="group flex w-fit items-center gap-1 font-mono text-xs text-cyber-cyan underline decoration-cyber-cyan/30 underline-offset-4 transition-colors duration-300 hover:text-cyber-magenta hover:decoration-cyber-magenta/60"
@@ -135,6 +185,79 @@ const Work = () => {
           </div>
         ))}
       </section>
+
+      <Dialog open={preview !== null} onOpenChange={(open) => !open && closePreview()}>
+        <DialogContent
+          showCloseButton={false}
+          className="max-w-5xl gap-0 border-cyber-cyan/25 bg-cyber-ink/95 p-0"
+          onKeyDown={(event) => {
+            if (event.key === 'ArrowLeft') {
+              event.preventDefault();
+              stepPreview(-1);
+            }
+            if (event.key === 'ArrowRight') {
+              event.preventDefault();
+              stepPreview(1);
+            }
+          }}
+        >
+          <div className="flex items-start justify-between gap-3 border-b border-cyber-cyan/20 px-3 py-2">
+            <div className="min-w-0">
+              <DialogTitle className="truncate">{previewWork?.title ?? ''}</DialogTitle>
+              <DialogDescription className="mt-1 text-[10px] uppercase tracking-[0.2em]" aria-live="polite">
+                {preview
+                  ? t('imageCounter', {
+                      current: preview.imageIndex + 1,
+                      total: previewImages.length,
+                    })
+                  : ''}
+              </DialogDescription>
+            </div>
+            <div className="flex shrink-0 items-center gap-1.5">
+              {previewImages.length > 1 && (
+                <>
+                  <Button
+                    variant="outline"
+                    size="icon-sm"
+                    onClick={() => stepPreview(-1)}
+                    aria-label={t('previousImage')}
+                  >
+                    <ChevronLeft />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="icon-sm"
+                    onClick={() => stepPreview(1)}
+                    aria-label={t('nextImage')}
+                  >
+                    <ChevronRight />
+                  </Button>
+                </>
+              )}
+              <DialogClose asChild>
+                <Button variant="secondary" size="icon-sm" aria-label={t('close')}>
+                  <X />
+                </Button>
+              </DialogClose>
+            </div>
+          </div>
+          <div className="flex max-h-[75vh] items-center justify-center overflow-auto bg-cyber-deep p-2">
+            {previewImage && (
+              <img
+                src={previewImage}
+                alt={previewWork?.title ?? ''}
+                className="max-h-[72vh] w-auto max-w-full object-contain"
+              />
+            )}
+          </div>
+          <div className="flex items-center gap-2 px-3 py-1.5">
+            <span className="hud-line flex-1" />
+            <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-cyber-cyan/40">
+              {previewImages.length > 1 && `← → ${t('nextImage')} · `}ESC {t('close')}
+            </span>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

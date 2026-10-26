@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import 'tw-animate-css';
 
 /* ===== Cyberpunk design tokens ===== */
 @theme {
@@ -14,11 +15,57 @@
     'Noto Sans Mono CJK TC', monospace;
 }
 
+/* ===== shadcn/ui tokens（對應 cyberpunk 色票） ===== */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 3px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 3px);
+  --radius-xl: calc(var(--radius) + 7px);
+}
+
 :root {
   --spacing: 5px;
   --cyber-clip: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
   --cyber-clip-sm: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px);
   color-scheme: dark;
+
+  --radius: 2px;
+  --background: #04060f;
+  --foreground: #d9e7ff;
+  --card: #0a0f1f;
+  --card-foreground: #d9e7ff;
+  --popover: #070b16;
+  --popover-foreground: #d9e7ff;
+  --primary: #00f0ff;
+  --primary-foreground: #04060f;
+  --secondary: #1b2544;
+  --secondary-foreground: #d9e7ff;
+  --muted: #0f1730;
+  --muted-foreground: #8ca3c8;
+  --accent: #ff2bd6;
+  --accent-foreground: #04060f;
+  --destructive: #ff3b5c;
+  --border: rgba(0, 240, 255, 0.22);
+  --input: rgba(0, 240, 255, 0.22);
+  --ring: rgba(0, 240, 255, 0.65);
 }
 
 @layer base {

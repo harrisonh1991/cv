@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 import TextRain from '@/components/textRain';
 import useMedia from '@/hooks/useMedia';
 import RandomText from '@/components/randomText';
-import ShadowDot from '@/components/shadowDot';
 import {
   SiReact,
   SiVuedotjs,
@@ -15,6 +14,7 @@ import {
   SiSupabase,
   SiGithub,
   SiGoogletagmanager,
+  SiVite,
 } from '@icons-pack/react-simple-icons';
 import '@/styles/home.css';
 import SEO from '@/components/seo';
@@ -22,7 +22,6 @@ import SkillIconSection from '@/components/skillIconSection';
 import ContentContainer from '@/components/contentContainer';
 import GlitchText from '@/components/glitchText';
 
-/** 固定物件，避免每次 render 觸發 TextRain 的 effect 重啟 */
 const RAIN_COLOR = { r: 0, g: 240, b: 255 };
 
 export default function Home() {
@@ -59,6 +58,10 @@ export default function Home() {
         {
           icon: SiSass,
           label: 'Sass',
+        },
+        {
+          icon: SiVite,
+          label: 'Vite',
         },
       ],
     },
@@ -107,29 +110,14 @@ export default function Home() {
         />
         <div className="relative flex h-screen min-h-[520px] items-center justify-center overflow-hidden px-3 text-center">
           <div className="cyber-glow" aria-hidden="true" />
-          <div className="cyber-floor" aria-hidden="true" />
-          <div className="cyber-horizon" aria-hidden="true" />
           <div className="relative z-10 flex flex-col items-center gap-5">
-            <div className="cyber-label flex items-center gap-2">
-              <span className="h-1.5 w-1.5 animate-pulse bg-cyber-magenta shadow-[0_0_10px_rgba(255,43,214,0.9)]" />
-              SYSTEM ONLINE
-              <span className="text-cyber-cyan/40">//</span>
-              NODE 01
-            </div>
             <h1 className="font-mono text-3xl font-bold tracking-[0.14em] text-white sm:text-5xl lg:text-6xl">
               <GlitchText text="Harrison Huang" />
             </h1>
             <div className="flex items-center gap-2 font-mono text-sm tracking-[0.2em] text-cyber-cyan sm:text-base">
               <span className="text-cyber-magenta">[</span>
-              <ShadowDot bgColor="bg-cyber-cyan" />
               <RandomText word={t('frontendDeveloper')} />
               <span className="text-cyber-magenta">]</span>
-            </div>
-            <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
-              <span className="cyber-chip">React</span>
-              <span className="cyber-chip">Vue</span>
-              <span className="cyber-chip">Next.js</span>
-              <span className="cyber-chip">Tailwind</span>
             </div>
           </div>
           <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1">
