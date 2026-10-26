@@ -1,2 +1,6 @@
 allowBuilds:
   esbuild: true
+  # wrangler 依賴的 workerd 需要 postinstall 才能取得平台二進位檔，
+  # 否則 CI 執行 `pnpm add -D wrangler` 會以 ERR_PNPM_IGNORED_BUILDS 失敗。
+  workerd: true
+
