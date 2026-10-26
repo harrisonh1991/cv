@@ -4,7 +4,6 @@ import { getAge } from '@/utils/utils';
 import SEO from '@/components/seo';
 import CyberPanel from '@/components/cyberPanel';
 import GlitchText from '@/components/glitchText';
-import PicMe from '@/assets/me.jpg';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -150,7 +149,7 @@ export default function Profile() {
               />
               <div className="relative rounded-full bg-[conic-gradient(from_0deg,var(--color-cyber-cyan),var(--color-cyber-violet),var(--color-cyber-magenta),var(--color-cyber-cyan))] p-[2px] shadow-[0_0_35px_-6px_rgba(0,240,255,0.85)]">
                 <img
-                  src={PicMe}
+                  src="/images/me.jpg"
                   loading="lazy"
                   alt="Harrison Huang"
                   className="h-30 w-30 rounded-full bg-cyber-ink object-cover grayscale transition duration-500 hover:grayscale-0"

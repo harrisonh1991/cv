@@ -12,9 +12,6 @@ import {
   DialogDescription,
   DialogTitle,
 } from '@/components/ui/dialog';
-import ImgITeSHOP from '@/assets/iteshop.jpg';
-import ImgITeSHOPCrm1 from '@/assets/iteshopCrm1.png';
-import ImgITeSHOPCrm2 from '@/assets/iteshopCrm2.png';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import { useTranslation } from 'react-i18next';
@@ -22,6 +19,11 @@ import 'swiper/css';
 import 'swiper/css/autoplay';
 import '@/styles/Work.css';
 import PointDescriptions from '@/components/pointLists';
+
+/** 作品截圖放在 public/images，直接以根路徑引用 */
+const ImgITeSHOP = '/images/iteshop.jpg';
+const ImgITeSHOPCrm1 = '/images/iteshopCrm1.png';
+const ImgITeSHOPCrm2 = '/images/iteshopCrm2.png';
 
 interface TypeWork {
   title: string;
